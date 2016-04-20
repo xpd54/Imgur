@@ -19,14 +19,17 @@ class ContainerViewController: UIViewController {
     override func loadView() {
         super.loadView()
         let tabBarController = UITabBarController()
-        let gridBarItem = UITabBarItem(title: "Grid", image: nil, tag: 0)
-        let listBarItem = UITabBarItem(title: "List", image: nil, tag: 1)
-        tabBarController.tabBarItem = gridBarItem
-        tabBarController.tabBarItem = listBarItem
+        tabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
         let gridViewController = GridViewController()
         let listViewController = ListViewController()
         let controllers = [gridViewController, listViewController]
         tabBarController.viewControllers = controllers
+
+        let tabBarItems = tabBarController.tabBar.items! as [UITabBarItem]
+        let firstTabBarItem = tabBarItems[0] as UITabBarItem
+        let secondTabBarItem = tabBarItems[1] as UITabBarItem
+        firstTabBarItem.title = "Grid"
+        secondTabBarItem.title = "List"
         containerNavigationController = UINavigationController(rootViewController: tabBarController)
         self.view.addSubview(containerNavigationController.view)
         self.addChildViewController(containerNavigationController)
