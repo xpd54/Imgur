@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  GridViewController.swift
 //  Imgur
 //
 //  Created by Ravi Prakash on 19/04/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class GridViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

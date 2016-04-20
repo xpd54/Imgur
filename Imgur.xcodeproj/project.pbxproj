@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3DF09D71CC749BE00FFB9CD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */; };
 		A3FCD6431CC5F7CE00B8471C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */; };
-		A3FCD6451CC5F7CE00B8471C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FCD6441CC5F7CE00B8471C /* ViewController.swift */; };
+		A3FCD6451CC5F7CE00B8471C /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FCD6441CC5F7CE00B8471C /* GridViewController.swift */; };
 		A3FCD6481CC5F7CE00B8471C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3FCD6461CC5F7CE00B8471C /* Main.storyboard */; };
 		A3FCD64B1CC5F7CE00B8471C /* Imgur.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3FCD6491CC5F7CE00B8471C /* Imgur.xcdatamodeld */; };
 		A3FCD64D1CC5F7CE00B8471C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3FCD64C1CC5F7CE00B8471C /* Assets.xcassets */; };
@@ -27,9 +28,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		A3FCD63F1CC5F7CE00B8471C /* Imgur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imgur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A3FCD6441CC5F7CE00B8471C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A3FCD6441CC5F7CE00B8471C /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		A3FCD6471CC5F7CE00B8471C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A3FCD64A1CC5F7CE00B8471C /* Imgur.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Imgur.xcdatamodel; sourceTree = "<group>"; };
 		A3FCD64C1CC5F7CE00B8471C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,7 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */,
-				A3FCD6441CC5F7CE00B8471C /* ViewController.swift */,
+				A3FCD6441CC5F7CE00B8471C /* GridViewController.swift */,
+				A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */,
 				A3FCD6461CC5F7CE00B8471C /* Main.storyboard */,
 				A3FCD64C1CC5F7CE00B8471C /* Assets.xcassets */,
 				A3FCD64E1CC5F7CE00B8471C /* LaunchScreen.storyboard */,
@@ -201,7 +204,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3FCD64B1CC5F7CE00B8471C /* Imgur.xcdatamodeld in Sources */,
-				A3FCD6451CC5F7CE00B8471C /* ViewController.swift in Sources */,
+				A3FCD6451CC5F7CE00B8471C /* GridViewController.swift in Sources */,
+				A3DF09D71CC749BE00FFB9CD /* ListViewController.swift in Sources */,
 				A3FCD6431CC5F7CE00B8471C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,6 +398,7 @@
 				A3FCD6611CC5F7CE00B8471C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A3FCD6621CC5F7CE00B8471C /* Build configuration list for PBXNativeTarget "ImgurTests" */ = {
 			isa = XCConfigurationList;
@@ -402,6 +407,7 @@
 				A3FCD6641CC5F7CE00B8471C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

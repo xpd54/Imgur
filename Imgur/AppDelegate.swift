@@ -16,6 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        let tabBarController = UITabBarController()
+        let gridViewController = GridViewController()
+        let listViewController = ListViewController()
+        let controllers = [gridViewController, listViewController]
+        tabBarController.viewControllers = controllers
+        window?.rootViewController = tabBarController
         // Override point for customization after application launch.
         return true
     }
