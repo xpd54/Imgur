@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A3DF09D71CC749BE00FFB9CD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */; };
+		A3DF09D91CC74F9600FFB9CD /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */; };
 		A3FCD6431CC5F7CE00B8471C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */; };
 		A3FCD6451CC5F7CE00B8471C /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FCD6441CC5F7CE00B8471C /* GridViewController.swift */; };
 		A3FCD6481CC5F7CE00B8471C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3FCD6461CC5F7CE00B8471C /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		A3FCD63F1CC5F7CE00B8471C /* Imgur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imgur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3FCD6441CC5F7CE00B8471C /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */,
+				A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */,
 				A3FCD6441CC5F7CE00B8471C /* GridViewController.swift */,
 				A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */,
 				A3FCD6461CC5F7CE00B8471C /* Main.storyboard */,
@@ -205,6 +208,7 @@
 			files = (
 				A3FCD64B1CC5F7CE00B8471C /* Imgur.xcdatamodeld in Sources */,
 				A3FCD6451CC5F7CE00B8471C /* GridViewController.swift in Sources */,
+				A3DF09D91CC74F9600FFB9CD /* ContainerViewController.swift in Sources */,
 				A3DF09D71CC749BE00FFB9CD /* ListViewController.swift in Sources */,
 				A3FCD6431CC5F7CE00B8471C /* AppDelegate.swift in Sources */,
 			);
