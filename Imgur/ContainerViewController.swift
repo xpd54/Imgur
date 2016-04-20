@@ -9,7 +9,8 @@
 import UIKit
 
 class ContainerViewController: UIViewController {
-
+    let GRID = "Grid"
+    let LIST = "List"
     var containerNavigationController: UINavigationController!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +29,10 @@ class ContainerViewController: UIViewController {
         let tabBarItems = tabBarController.tabBar.items! as [UITabBarItem]
         let firstTabBarItem = tabBarItems[0] as UITabBarItem
         let secondTabBarItem = tabBarItems[1] as UITabBarItem
-        firstTabBarItem.title = "Grid"
-        secondTabBarItem.title = "List"
+        firstTabBarItem.title = GRID
+        secondTabBarItem.title = LIST
+        firstTabBarItem.image = AssetsManager.getImage(Image.Grid)
+        secondTabBarItem.image = AssetsManager.getImage(Image.List)
         containerNavigationController = UINavigationController(rootViewController: tabBarController)
         self.view.addSubview(containerNavigationController.view)
         self.addChildViewController(containerNavigationController)
