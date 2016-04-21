@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4ABCC1261CC91DB500AFE732 /* StaggerdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABCC1251CC91DB500AFE732 /* StaggerdViewController.swift */; };
 		A3DF09D71CC749BE00FFB9CD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */; };
 		A3DF09D91CC74F9600FFB9CD /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */; };
 		A3DF09DC1CC78D7800FFB9CD /* AssetsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09DB1CC78D7800FFB9CD /* AssetsManager.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4ABCC1251CC91DB500AFE732 /* StaggerdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaggerdViewController.swift; sourceTree = "<group>"; };
 		A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		A3DF09DB1CC78D7800FFB9CD /* AssetsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssetsManager.swift; path = AssetsManager/AssetsManager.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */,
 				A3FCD6441CC5F7CE00B8471C /* GridViewController.swift */,
 				A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */,
+				4ABCC1251CC91DB500AFE732 /* StaggerdViewController.swift */,
 				A3DF09DA1CC78D3200FFB9CD /* AssetsManager */,
 				A3FCD6461CC5F7CE00B8471C /* Main.storyboard */,
 				A3FCD64C1CC5F7CE00B8471C /* Assets.xcassets */,
@@ -219,6 +222,7 @@
 			files = (
 				A3FCD64B1CC5F7CE00B8471C /* Imgur.xcdatamodeld in Sources */,
 				A3FCD6451CC5F7CE00B8471C /* GridViewController.swift in Sources */,
+				4ABCC1261CC91DB500AFE732 /* StaggerdViewController.swift in Sources */,
 				A3DF09DC1CC78D7800FFB9CD /* AssetsManager.swift in Sources */,
 				A3DF09D91CC74F9600FFB9CD /* ContainerViewController.swift in Sources */,
 				A3DF09D71CC749BE00FFB9CD /* ListViewController.swift in Sources */,

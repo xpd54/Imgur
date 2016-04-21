@@ -11,7 +11,7 @@ import UIKit
 class ContainerViewController: UIViewController {
     let GRID = "Grid"
     let LIST = "List"
-    var containerNavigationController: UINavigationController!
+    let STAGGRED = "Staggerd"
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -23,36 +23,27 @@ class ContainerViewController: UIViewController {
         tabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
         let gridViewController = GridViewController()
         let listViewController = ListViewController()
-        let controllers = [gridViewController, listViewController]
+        let staggerdViewController = StaggerdViewController()
+        let controllers = [gridViewController, listViewController, staggerdViewController]
         tabBarController.viewControllers = controllers
 
         let tabBarItems = tabBarController.tabBar.items! as [UITabBarItem]
         let firstTabBarItem = tabBarItems[0] as UITabBarItem
         let secondTabBarItem = tabBarItems[1] as UITabBarItem
+        let thirdTabBarItem = tabBarItems[2] as UITabBarItem
         firstTabBarItem.title = GRID
         secondTabBarItem.title = LIST
+        thirdTabBarItem.title = STAGGRED
         firstTabBarItem.image = AssetsManager.getImage(Image.Grid)
         secondTabBarItem.image = AssetsManager.getImage(Image.List)
-        containerNavigationController = UINavigationController(rootViewController: tabBarController)
-        self.view.addSubview(containerNavigationController.view)
-        self.addChildViewController(containerNavigationController)
-        containerNavigationController.didMoveToParentViewController(self)
+        thirdTabBarItem.image = AssetsManager.getImage(Image.Staggerd)
+        self.view.addSubview(tabBarController.view)
+        self.addChildViewController(tabBarController)
+        tabBarController.didMoveToParentViewController(self)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

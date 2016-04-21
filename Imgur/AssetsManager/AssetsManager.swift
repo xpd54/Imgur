@@ -11,6 +11,7 @@ import UIKit
 public enum Image: String {
     case Grid = "grid"
     case List = "list"
+    case Staggerd = "staggerd"
 }
 class AssetsManager: NSObject {
     static func getImage(imageName : Image) -> UIImage {
