@@ -1,25 +1,23 @@
 //
-//  ViewController.swift
+//  ListViewController.swift
 //  Imgur
 //
-//  Created by Ravi Prakash on 19/04/16.
+//  Created by Ravi Prakash on 20/04/16.
 //  Copyright © 2016 Ravi Prakash. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class ListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.view.backgroundColor = UIColor.greenColor()
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
-
