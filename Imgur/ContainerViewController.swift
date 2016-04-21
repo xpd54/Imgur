@@ -40,8 +40,24 @@ class ContainerViewController: UIViewController {
         self.view.addSubview(tabBarController.view)
         self.addChildViewController(tabBarController)
         tabBarController.didMoveToParentViewController(self)
+        self.addCustomNavigationBar()
     }
-    
+
+    func addCustomNavigationBar() -> UIView {
+        let navigationBar = UIView()
+        navigationBar.backgroundColor = UIColor.lightGrayColor()
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(navigationBar)
+        let views = ["navigationBar" : navigationBar]
+        let hcString = "H:|-0-[navigationBar]-0-|"
+        let vcString = "V:|-0-[navigationBar(64)]"
+        let horizontalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(hcString, options:NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
+        let verticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(vcString, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: views)
+        self.view.addConstraints(horizontalConstraint)
+        self.view.addConstraints(verticalConstraint)
+        return navigationBar
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
