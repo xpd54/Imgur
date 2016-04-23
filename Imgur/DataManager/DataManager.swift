@@ -16,10 +16,13 @@ enum DataType : NSString {
     case Score = "score"
     case TypeOfData = "type"
     case ImageLink = "link"
+    case Height  = "height"
+    case Width = "width"
 }
 
 class DataManager: NSObject {
-    class func getListOfImageUrl(jsonList: NSDictionary) -> NSArray {
+    //Pass NSDictionary from CoreApi completion block
+    class func getListOfData(jsonList: NSDictionary) -> NSArray {
         let dataKey = "data"
         let finalDataList = NSMutableArray()
         let dataArray = jsonList.objectForKey(dataKey) as! NSArray
@@ -49,6 +52,14 @@ class DataManager: NSObject {
 
                 if let value = data.objectForKey(DataType.ImageLink.rawValue) {
                     dataDict.setObject(value, forKey: DataType.ImageLink.rawValue)
+                }
+                
+                if let value = data.objectForKey(DataType.Height.rawValue) {
+                    dataDict.setObject(value, forKey: DataType.Height.rawValue)
+                }
+
+                if let value = data.objectForKey(DataType.Width.rawValue) {
+                    dataDict.setObject(value, forKey: DataType.Width.rawValue)
                 }
                 finalDataList.addObject(dataDict)
             }
