@@ -10,6 +10,8 @@ import UIKit
 
 class GridViewController: UIViewController {
 
+    var heightOfTabBar = CGFloat()
+    private let cellWidth = 96
     private let reuseIdentifier = "ImgurCell"
     private var gridView : UICollectionView!
     override func viewDidLoad() {
@@ -64,7 +66,7 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(100, 100)
+        return CGSize(cellWidth, cellWidth)
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
