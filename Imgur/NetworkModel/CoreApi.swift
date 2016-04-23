@@ -16,11 +16,11 @@ private let baseUrl = "https://api.imgur.com/3/gallery/"
 private let clintId = "00ec4f971c9b3e2"
 class CoreApi: NSObject {
 
-    class func makeApiCallForUrlEndPoint(urlEndPoint: String, method: NetworkMethod, apiData: NSDictionary?, completion:(response: AnyObject?) -> Void)  {
+    class func makeApiCallForUrlEndPoint(urlEndPoint: String, method: NetworkMethod, apiData: NSDictionary?, completion:(response: NSDictionary) -> Void)  {
         CoreApi.makeApiCallFor(baseUrl, urlEndPoint: urlEndPoint, method: method, apiData: apiData, completion: completion)
     }
 
-    class func makeApiCallFor(baseUrl: String, urlEndPoint: String, method: NetworkMethod, apiData: NSDictionary?, completion:(response: AnyObject?) -> Void)  {
+    class func makeApiCallFor(baseUrl: String, urlEndPoint: String, method: NetworkMethod, apiData: NSDictionary?, completion:(response: NSDictionary) -> Void)  {
         let fullUrl = baseUrl + urlEndPoint
         let formatedApiData = apiData as! [String : AnyObject]?
         if method == NetworkMethod.GET {
@@ -30,7 +30,7 @@ class CoreApi: NSObject {
         }
     }
 
-    private class func apiRequest(method: Alamofire.Method, url: String, apiData: [String : AnyObject]? = nil, completion:(response: AnyObject?) ->Void) {
+    private class func apiRequest(method: Alamofire.Method, url: String, apiData: [String : AnyObject]? = nil, completion:(response: NSDictionary) ->Void) {
         let authoKey = "Authorization"
         let authoValue = "Client-ID \(clintId)"
         let apiHeader = [authoKey : authoValue]
@@ -40,7 +40,7 @@ class CoreApi: NSObject {
 
             do {
                 let decodedJson = try NSJSONSerialization.JSONObjectWithData(responseData!, options: NSJSONReadingOptions.AllowFragments)
-                completion(response: decodedJson)
+                completion(response: decodedJson as! NSDictionary)
             } catch {
                 print("Error")
             }
