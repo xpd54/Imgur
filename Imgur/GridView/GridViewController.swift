@@ -66,7 +66,7 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(cellWidth, cellWidth)
+        return CGSize(width: cellWidth, height: cellWidth)
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
