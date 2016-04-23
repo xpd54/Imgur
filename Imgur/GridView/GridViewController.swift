@@ -15,7 +15,6 @@ class GridViewController: UIViewController {
     private let reuseIdentifier = "ImgurCell"
     private var gridView : UICollectionView!
     override func viewDidLoad() {
-        self.view.backgroundColor = UIColor.redColor()
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -32,7 +31,7 @@ class GridViewController: UIViewController {
         
         gridView.registerClass(GridCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
-        gridView.backgroundColor = UIColor.darkGrayColor()
+        gridView.backgroundColor = UIColor.lightGrayColor()
         gridView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(gridView)
         let views = ["gridView" : gridView]
@@ -61,7 +60,8 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! GridCollectionViewCell
-        cell.backgroundColor = UIColor.redColor()
+        cell.textLabel.text = "Hello world Hello world Hello world"
+        cell.imageView.image = AssetsManager.getImage(Image.PlaceHolder)
         return cell
     }
 

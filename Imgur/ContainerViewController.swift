@@ -55,6 +55,7 @@ class ContainerViewController: UIViewController {
         let verticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(vcString, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: views)
         self.view.addConstraints(horizontalConstraint)
         self.view.addConstraints(verticalConstraint)
+        ViewEffect.addShadowEffect(navigationBar, opacity: 1.0)
         return navigationBar
     }
 

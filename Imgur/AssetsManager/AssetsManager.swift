@@ -12,6 +12,7 @@ public enum Image: String {
     case Grid = "grid"
     case List = "list"
     case Staggerd = "staggerd"
+    case PlaceHolder = "lightGray"
 }
 class AssetsManager: NSObject {
     static func getImage(imageName : Image) -> UIImage {
