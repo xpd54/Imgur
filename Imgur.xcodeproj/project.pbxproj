@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A0111C31CCB52BD0059428F /* GridCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0111C21CCB52BD0059428F /* GridCollectionViewCell.swift */; };
+		4A0111C51CCB52D70059428F /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0111C41CCB52D70059428F /* GridViewController.swift */; };
 		4ABCC1261CC91DB500AFE732 /* StaggerdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABCC1251CC91DB500AFE732 /* StaggerdViewController.swift */; };
 		A3DF09D71CC749BE00FFB9CD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */; };
 		A3DF09D91CC74F9600FFB9CD /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */; };
 		A3DF09DC1CC78D7800FFB9CD /* AssetsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09DB1CC78D7800FFB9CD /* AssetsManager.swift */; };
 		A3FCD6431CC5F7CE00B8471C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */; };
-		A3FCD6451CC5F7CE00B8471C /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FCD6441CC5F7CE00B8471C /* GridViewController.swift */; };
 		A3FCD6481CC5F7CE00B8471C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3FCD6461CC5F7CE00B8471C /* Main.storyboard */; };
 		A3FCD64B1CC5F7CE00B8471C /* Imgur.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3FCD6491CC5F7CE00B8471C /* Imgur.xcdatamodeld */; };
 		A3FCD64D1CC5F7CE00B8471C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3FCD64C1CC5F7CE00B8471C /* Assets.xcassets */; };
@@ -31,13 +32,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A0111C21CCB52BD0059428F /* GridCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GridCollectionViewCell.swift; path = GridView/GridCollectionViewCell.swift; sourceTree = "<group>"; };
+		4A0111C41CCB52D70059428F /* GridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GridViewController.swift; path = GridView/GridViewController.swift; sourceTree = "<group>"; };
 		4ABCC1251CC91DB500AFE732 /* StaggerdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaggerdViewController.swift; sourceTree = "<group>"; };
 		A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		A3DF09DB1CC78D7800FFB9CD /* AssetsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssetsManager.swift; path = AssetsManager/AssetsManager.swift; sourceTree = "<group>"; };
 		A3FCD63F1CC5F7CE00B8471C /* Imgur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imgur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A3FCD6441CC5F7CE00B8471C /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		A3FCD6471CC5F7CE00B8471C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A3FCD64A1CC5F7CE00B8471C /* Imgur.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Imgur.xcdatamodel; sourceTree = "<group>"; };
 		A3FCD64C1CC5F7CE00B8471C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,6 +68,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A0111C11CCB52900059428F /* GridView */ = {
+			isa = PBXGroup;
+			children = (
+				4A0111C41CCB52D70059428F /* GridViewController.swift */,
+				4A0111C21CCB52BD0059428F /* GridCollectionViewCell.swift */,
+			);
+			name = GridView;
+			sourceTree = "<group>";
+		};
 		A3DF09DA1CC78D3200FFB9CD /* AssetsManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,7 +108,7 @@
 			children = (
 				A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */,
 				A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */,
-				A3FCD6441CC5F7CE00B8471C /* GridViewController.swift */,
+				4A0111C11CCB52900059428F /* GridView */,
 				A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */,
 				4ABCC1251CC91DB500AFE732 /* StaggerdViewController.swift */,
 				A3DF09DA1CC78D3200FFB9CD /* AssetsManager */,
@@ -220,10 +231,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A0111C51CCB52D70059428F /* GridViewController.swift in Sources */,
 				A3FCD64B1CC5F7CE00B8471C /* Imgur.xcdatamodeld in Sources */,
-				A3FCD6451CC5F7CE00B8471C /* GridViewController.swift in Sources */,
 				4ABCC1261CC91DB500AFE732 /* StaggerdViewController.swift in Sources */,
 				A3DF09DC1CC78D7800FFB9CD /* AssetsManager.swift in Sources */,
+				4A0111C31CCB52BD0059428F /* GridCollectionViewCell.swift in Sources */,
 				A3DF09D91CC74F9600FFB9CD /* ContainerViewController.swift in Sources */,
 				A3DF09D71CC749BE00FFB9CD /* ListViewController.swift in Sources */,
 				A3FCD6431CC5F7CE00B8471C /* AppDelegate.swift in Sources */,
