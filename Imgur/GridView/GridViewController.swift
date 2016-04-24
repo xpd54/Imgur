@@ -41,7 +41,7 @@ class GridViewController: UIViewController {
         let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(vcString, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: views)
         self.view.addConstraints(horizontalConstranint)
         self.view.addConstraints(verticalConstraints)
-        self.loadImgurData(0)
+        self.loadImgurData(1)
     }
 
     func loadImgurData(pageNo:Int) {
@@ -79,11 +79,13 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
 
         let manager = SDWebImageManager.sharedManager()
         manager.downloadImageWithURL(imageUrl, options: SDWebImageOptions.ContinueInBackground, progress: { (receivedSize, expectedSize) in
-//            print("\(receivedSize), \(expectedSize)")
+            let progress = (Float(receivedSize) / Float(expectedSize));
+            cell.progressView.progress = progress
         }) { (image, error, cacheType, finished, url) in
             if (error == nil) && finished {
                 print(image)
                 cell.imageView.image = image
+                cell.progressView.hidden = true
             } else {
                 print(error.localizedDescription)
             }
