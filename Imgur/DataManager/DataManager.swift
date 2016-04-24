@@ -19,7 +19,8 @@ enum DataType : NSString {
     case Height  = "height"
     case Width = "width"
 }
-
+private let writeQueue  = dispatch_queue_create("com.xpd54.imgur.write", nil)
+private let readQueue = dispatch_queue_create("com.xpdte.imgur.read", nil)
 class DataManager: NSObject {
     //Pass NSDictionary from CoreApi completion block
     class func getListOfData(jsonList: NSDictionary) -> NSArray {
@@ -68,19 +69,26 @@ class DataManager: NSObject {
     }
 
     class func saveImage(image:UIImage, imageName:String) {
-        let path = DataManager.getPathInDocumentDirectory(imageName)
-        let data = UIImagePNGRepresentation(image)
-        do {
-            try data?.writeToFile(path, options: NSDataWritingOptions.AtomicWrite)
-        } catch {
-            print("Devil is here")
+        dispatch_async(writeQueue) {
+            let path = DataManager.getPathInDocumentDirectory(imageName)
+            let data = UIImagePNGRepresentation(image)
+            do {
+                try data?.writeToFile(path, options: NSDataWritingOptions.AtomicWrite)
+            } catch {
+                print("Devil is here")
+            }
         }
+
     }
 
-    class func getImage(imageName:String) -> UIImage {
-        let path = DataManager.getPathInDocumentDirectory(imageName)
-        let image = UIImage.init(contentsOfFile: path)
-        return image!
+    class func getImage(imageName:String, completion:(image: UIImage)->Void) {
+        dispatch_async(readQueue) {
+            let path = DataManager.getPathInDocumentDirectory(imageName)
+            let image = UIImage.init(contentsOfFile: path)
+            dispatch_async(dispatch_get_main_queue(), {
+                completion(image: image!)
+            })
+        }
     }
 
     class func isImageAvailable(imageName:String) -> Bool {
@@ -91,7 +99,7 @@ class DataManager: NSObject {
     private class func getPathInDocumentDirectory(imageName:String) -> String {
         let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         let documentDirectory = paths[0]
-        let path = documentDirectory.stringByAppendingString("\"\(imageName)")
+        let path = documentDirectory.stringByAppendingString("/\(imageName)")
         return path
     }
 }
