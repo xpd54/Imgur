@@ -66,4 +66,32 @@ class DataManager: NSObject {
         }
         return finalDataList
     }
+
+    class func saveImage(image:UIImage, imageName:String) {
+        let path = DataManager.getPathInDocumentDirectory(imageName)
+        let data = UIImagePNGRepresentation(image)
+        do {
+            try data?.writeToFile(path, options: NSDataWritingOptions.AtomicWrite)
+        } catch {
+            print("Devil is here")
+        }
+    }
+
+    class func getImage(imageName:String) -> UIImage {
+        let path = DataManager.getPathInDocumentDirectory(imageName)
+        let image = UIImage.init(contentsOfFile: path)
+        return image!
+    }
+
+    class func isImageAvailable(imageName:String) -> Bool {
+        let path = DataManager.getPathInDocumentDirectory(imageName)
+        return NSFileManager.defaultManager().fileExistsAtPath(path)
+    }
+
+    private class func getPathInDocumentDirectory(imageName:String) -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let documentDirectory = paths[0]
+        let path = documentDirectory.stringByAppendingString("\"\(imageName)")
+        return path
+    }
 }
