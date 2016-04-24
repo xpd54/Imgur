@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 class GridViewController: UIViewController {
 
     var heightOfTabBar = CGFloat()
@@ -28,7 +28,7 @@ class GridViewController: UIViewController {
         self.view.addSubview(gridView)
         gridView.delegate   = self
         gridView.dataSource = self
-        
+
         gridView.registerClass(GridCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         gridView.backgroundColor = UIColor.lightGrayColor()
@@ -41,6 +41,16 @@ class GridViewController: UIViewController {
         let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(vcString, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: views)
         self.view.addConstraints(horizontalConstranint)
         self.view.addConstraints(verticalConstraints)
+        self.loadImgurData(0)
+    }
+
+    func loadImgurData(pageNo:Int) {
+        let endPoint = "hot/viral/\(pageNo).json"
+        CoreApi.makeApiCallForUrlEndPoint(endPoint, method: NetworkMethod.GET, apiData: nil) { (response) in
+            let imgurDataList = DataManager.getListOfData(response)
+            DataInMemoryCache.sharedInstance.imgurData.addObjectsFromArray(imgurDataList as [AnyObject])
+            self.gridView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,13 +65,29 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return DataInMemoryCache.sharedInstance.imgurData.count
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! GridCollectionViewCell
-        cell.textLabel.text = "Hello world Hello world Hello world"
-        cell.imageView.image = AssetsManager.getImage(Image.PlaceHolder)
+        let cellData = DataInMemoryCache.sharedInstance.imgurData.objectAtIndex(indexPath.row) as! NSDictionary
+        if let discription = cellData.objectForKey(DataType.Description.rawValue) {
+            cell.textLabel.text = discription as? String
+        }
+        let imagelink = cellData.objectForKey(DataType.ImageLink.rawValue) as! String
+        let imageUrl = NSURL(string: imagelink)
+
+        let manager = SDWebImageManager.sharedManager()
+        manager.downloadImageWithURL(imageUrl, options: SDWebImageOptions.ContinueInBackground, progress: { (receivedSize, expectedSize) in
+//            print("\(receivedSize), \(expectedSize)")
+        }) { (image, error, cacheType, finished, url) in
+            if (error == nil) && finished {
+                print(image)
+                cell.imageView.image = image
+            } else {
+                print(error.localizedDescription)
+            }
+        }
         return cell
     }
 
