@@ -76,28 +76,17 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         let imagelink = cellData.objectForKey(DataType.ImageLink.rawValue) as! String
         let imageUrl = NSURL(string: imagelink)
-        // If image is Stored in file use it or download and store it
-        if let imageName = imageUrl!.pathComponents?.last {
-            if DataManager.isImageAvailable(imageName) {
-                DataManager.getImage(imageName, completion: { (image) in
-                    cell.imageView.image = image
-                    cell.progressView.hidden = true
-                })
+        // SDWebImageManager downlaod and cache images internally using it to simplyfy the task
+        let manager = SDWebImageManager.sharedManager()
+        manager.downloadImageWithURL(imageUrl, options: SDWebImageOptions.ContinueInBackground, progress: { (receivedSize, expectedSize) in
+            let progress = (Float(receivedSize) / Float(expectedSize));
+            cell.progressView.progress = progress
+        }) { (image, error, cacheType, finished, url) in
+            if (error == nil) && finished {
+                cell.imageView.image = image
+                cell.progressView.hidden = true
             } else {
-                let manager = SDWebImageManager.sharedManager()
-                manager.downloadImageWithURL(imageUrl, options: SDWebImageOptions.ContinueInBackground, progress: { (receivedSize, expectedSize) in
-                    let progress = (Float(receivedSize) / Float(expectedSize));
-                    cell.progressView.progress = progress
-                }) { (image, error, cacheType, finished, url) in
-                    if (error == nil) && finished {
-                        cell.imageView.image = image
-                        cell.progressView.hidden = true
-                        let imageName = imageUrl!.pathComponents?.last
-                        DataManager.saveImage(image, imageName: imageName!)
-                    } else {
-                        print(error.localizedDescription)
-                    }
-                }
+                print(error.localizedDescription)
             }
         }
         return cell

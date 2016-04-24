@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 enum DataType : NSString {
     case Title = "title"
     case Description = "description"
@@ -21,6 +21,7 @@ enum DataType : NSString {
 }
 private let writeQueue  = dispatch_queue_create("com.xpd54.imgur.write", nil)
 private let readQueue = dispatch_queue_create("com.xpdte.imgur.read", nil)
+private let imageCache = SDImageCache.sharedImageCache()
 class DataManager: NSObject {
     //Pass NSDictionary from CoreApi completion block
     class func getListOfData(jsonList: NSDictionary) -> NSArray {
@@ -66,40 +67,5 @@ class DataManager: NSObject {
             }
         }
         return finalDataList
-    }
-
-    class func saveImage(image:UIImage, imageName:String) {
-        dispatch_async(writeQueue) {
-            let path = DataManager.getPathInDocumentDirectory(imageName)
-            let data = UIImagePNGRepresentation(image)
-            do {
-                try data?.writeToFile(path, options: NSDataWritingOptions.AtomicWrite)
-            } catch {
-                print("Devil is here")
-            }
-        }
-
-    }
-
-    class func getImage(imageName:String, completion:(image: UIImage)->Void) {
-        dispatch_async(readQueue) {
-            let path = DataManager.getPathInDocumentDirectory(imageName)
-            let image = UIImage.init(contentsOfFile: path)
-            dispatch_async(dispatch_get_main_queue(), {
-                completion(image: image!)
-            })
-        }
-    }
-
-    class func isImageAvailable(imageName:String) -> Bool {
-        let path = DataManager.getPathInDocumentDirectory(imageName)
-        return NSFileManager.defaultManager().fileExistsAtPath(path)
-    }
-
-    private class func getPathInDocumentDirectory(imageName:String) -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        let documentDirectory = paths[0]
-        let path = documentDirectory.stringByAppendingString("/\(imageName)")
-        return path
     }
 }
