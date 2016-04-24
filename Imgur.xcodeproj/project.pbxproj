@@ -115,6 +115,15 @@
 			path = ViewEffect;
 			sourceTree = "<group>";
 		};
+		4A0111D81CCD4C280059428F /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				A3FCD6461CC5F7CE00B8471C /* Main.storyboard */,
+				A3FCD64E1CC5F7CE00B8471C /* LaunchScreen.storyboard */,
+			);
+			name = StoryBoards;
+			sourceTree = "<group>";
+		};
 		55772A4EE9447402D54C03DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,11 +173,10 @@
 				4A0111CB1CCBA0060059428F /* DataManager */,
 				4A0111C81CCB7B780059428F /* NetworkModel */,
 				A3DF09DA1CC78D3200FFB9CD /* AssetsManager */,
-				A3FCD6461CC5F7CE00B8471C /* Main.storyboard */,
+				4A0111D81CCD4C280059428F /* StoryBoards */,
 				A3FCD64C1CC5F7CE00B8471C /* Assets.xcassets */,
-				A3FCD64E1CC5F7CE00B8471C /* LaunchScreen.storyboard */,
-				A3FCD6511CC5F7CE00B8471C /* Info.plist */,
 				A3FCD6491CC5F7CE00B8471C /* Imgur.xcdatamodeld */,
+				A3FCD6511CC5F7CE00B8471C /* Info.plist */,
 			);
 			path = Imgur;
 			sourceTree = "<group>";
