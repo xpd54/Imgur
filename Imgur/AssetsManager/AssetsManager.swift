@@ -13,6 +13,9 @@ public enum Image: String {
     case List = "list"
     case Staggerd = "staggerd"
     case PlaceHolder = "lightGray"
+    case UVote = "upVote"
+    case DVote = "downVote"
+    case Score = "score"
 }
 class AssetsManager: NSObject {
     static func getImage(imageName : Image) -> UIImage {
