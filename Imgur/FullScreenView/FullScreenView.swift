@@ -17,7 +17,7 @@ class FullScreenView: UIView {
     var score : String!
     var height : String!
     var width : String!
-    init(frame: CGRect, image: UIImage, imageInformation:NSDictionary) {
+    init(frame: CGRect,image: UIImage, imageInformation:NSDictionary) {
         super.init(frame: frame)
         self.setUpView(image, imageInformation: imageInformation)
     }
@@ -60,24 +60,30 @@ class FullScreenView: UIView {
         let upVoteIcon = UIImageView(image: AssetsManager.getImage(Image.UVote))
         upVoteIcon.translatesAutoresizingMaskIntoConstraints = false
         let upVoteNumber = UILabel()
+        upVoteNumber.translatesAutoresizingMaskIntoConstraints = false
         upVoteNumber.text = self.upVote
 
         let downVoteIcon = UIImageView(image: AssetsManager.getImage(Image.DVote))
         downVoteIcon.translatesAutoresizingMaskIntoConstraints = false
         let downVoteNumber = UILabel()
+        downVoteNumber.translatesAutoresizingMaskIntoConstraints = false
         downVoteNumber.text = self.downVote
         
         let scoreIcon = UIImageView(image: AssetsManager.getImage(Image.Score))
         scoreIcon.translatesAutoresizingMaskIntoConstraints = false
         let scoreNumber = UILabel()
+        scoreNumber.translatesAutoresizingMaskIntoConstraints = false
         scoreNumber.text = self.score
 
         // Set up ScoreView where upvote, downVote, title and Score lies
         
         scoreView.addSubview(titleView)
         scoreView.addSubview(upVoteIcon)
+        scoreView.addSubview(upVoteNumber)
         scoreView.addSubview(downVoteIcon)
+        scoreView.addSubview(downVoteNumber)
         scoreView.addSubview(scoreIcon)
+        scoreView.addSubview(scoreNumber)
         
         let views = ["titleView" : titleView,
                      "upVoteIcon" : upVoteIcon,
@@ -87,34 +93,34 @@ class FullScreenView: UIView {
                      "scoreIcon" : scoreIcon,
                      "scoreNumber" : scoreNumber]
         let hcStringTitle = "H:|-1-[titleView]-1-|"
-        let vcStringTitle = "V:|-1-[titleView]"
-        let hcStringUpVote = "H:|-1-[upVoteIcon]-1-[upVoteNumber]-[downVoteIcon]-1-[downVoteNumber]-[scoreIcon]-1-[scoreNumber]-1-|"
-        let vcStringUpVote = "V:[titleView]-1-[upVoteIcon]-1|"
-        let vcStringUpVoteNumber = "V:[titleView]-1-[upVoteNumber]-1-|"
-        let vcStringDownVote = "V:[titleView]-1-[downVoteIcon]-1-|"
-        let vcStringDownvoteNumber = "V:[titleView]-1-[downVoteNumber]-1-|"
-        let vcStringScore = "V:[titleView]-1-[scoreIcon]-1-|"
-        let vcStringScoreNumber = "V:[titleView]-1-[scoreNumber]-1-|"
+        let vcStringTitle = "V:|-1-[titleView]-0-[upVoteIcon]-1-|"
+        let hcStringUpVote = "H:|-1-[upVoteIcon]-1-[upVoteNumber(downVoteNumber)]-[downVoteIcon]-1-[downVoteNumber(scoreNumber)]-[scoreIcon]-1-[scoreNumber]-1-|"
+//        let vcStringUpVote = "V:[titleView]-1-[upVoteIcon]-1-|"
+//        let vcStringUpVoteNumber = "V:[titleView]-1-[upVoteNumber]-1-|"
+//        let vcStringDownVote = "V:[titleView]-1-[downVoteIcon]-1-|"
+//        let vcStringDownvoteNumber = "V:[titleView]-1-[downVoteNumber]-1-|"
+//        let vcStringScore = "V:[titleView]-1-[scoreIcon]-1-|"
+//        let vcStringScoreNumber = "V:[titleView]-1-[scoreNumber]-1-|"
         
         let titleHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(hcStringTitle, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: views)
         let titleVerticalConstratints = NSLayoutConstraint.constraintsWithVisualFormat(vcStringTitle, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
 
-        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(hcStringUpVote, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
-        let vcUpVote = NSLayoutConstraint.constraintsWithVisualFormat(vcStringUpVote, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
-        let vcUpVoteNumber = NSLayoutConstraint.constraintsWithVisualFormat(vcStringUpVoteNumber, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
-        let vcDownVote = NSLayoutConstraint.constraintsWithVisualFormat(vcStringDownVote, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
-        let vcDownVoteNumber = NSLayoutConstraint.constraintsWithVisualFormat(vcStringDownvoteNumber, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
-        let vcScore = NSLayoutConstraint.constraintsWithVisualFormat(vcStringScore, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
-        let vcScoreNumber = NSLayoutConstraint.constraintsWithVisualFormat(vcStringScoreNumber, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
+        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(hcStringUpVote, options: NSLayoutFormatOptions.AlignAllBottom, metrics: nil, views: views)
+//        let vcUpVote = NSLayoutConstraint.constraintsWithVisualFormat(vcStringUpVote, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
+//        let vcUpVoteNumber = NSLayoutConstraint.constraintsWithVisualFormat(vcStringUpVoteNumber, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
+//        let vcDownVote = NSLayoutConstraint.constraintsWithVisualFormat(vcStringDownVote, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
+//        let vcDownVoteNumber = NSLayoutConstraint.constraintsWithVisualFormat(vcStringDownvoteNumber, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
+//        let vcScore = NSLayoutConstraint.constraintsWithVisualFormat(vcStringScore, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
+//        let vcScoreNumber = NSLayoutConstraint.constraintsWithVisualFormat(vcStringScoreNumber, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
         scoreView.addConstraints(titleHorizontalConstraints)
         scoreView.addConstraints(titleVerticalConstratints)
         scoreView.addConstraints(horizontalConstraints)
-        scoreView.addConstraints(vcUpVote)
-        scoreView.addConstraints(vcUpVoteNumber)
-        scoreView.addConstraints(vcDownVote)
-        scoreView.addConstraints(vcDownVoteNumber)
-        scoreView.addConstraints(vcScore)
-        scoreView.addConstraints(vcScoreNumber)
+//        scoreView.addConstraints(vcUpVote)
+//        scoreView.addConstraints(vcUpVoteNumber)
+//        scoreView.addConstraints(vcDownVote)
+//        scoreView.addConstraints(vcDownVoteNumber)
+//        scoreView.addConstraints(vcScore)
+//        scoreView.addConstraints(vcScoreNumber)
         
         //Set ScoreView to main view 
         self.addSubview(scoreView)
