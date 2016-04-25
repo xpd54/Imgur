@@ -17,6 +17,7 @@ class FullScreenView: UIView {
     var score : String!
     var height : String!
     var width : String!
+    var imageView : UIImageView!
     init(frame: CGRect,image: UIImage, imageInformation:NSDictionary) {
         super.init(frame: frame)
         self.setUpView(image, imageInformation: imageInformation)
@@ -45,10 +46,13 @@ class FullScreenView: UIView {
         titleView.textAlignment = .Left
         titleView.textColor = UIColor.whiteColor()
         titleView.font = UIFont.boldSystemFontOfSize(18.0)
-        let imageView = UIImageView(image: image)
+        imageView = UIImageView(image: image)
+        imageView.contentMode = .ScaleAspectFit
+        imageView.backgroundColor = UIColor.blackColor()
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         let description = UITextView()
+        description.text = imageDescription
         description.translatesAutoresizingMaskIntoConstraints = false
         description.editable = false
         description.backgroundColor = UIColor.lightGrayColor()
@@ -103,14 +107,28 @@ class FullScreenView: UIView {
         scoreView.addConstraints(titleVerticalConstratints)
         scoreView.addConstraints(horizontalConstraints)
 
-        //Set ScoreView to main view 
+        //Set ScoreView to main view
+        let widthOFScreen = UIScreen.mainScreen().bounds.width
+        let heightOfImageView = (Int(height)! * Int(widthOFScreen)) / Int(width)!
+
         self.addSubview(scoreView)
-        let mainViews = ["scoreView" : scoreView]
+        self.addSubview(imageView)
+        self.addSubview(description)
+        let mainViews = ["scoreView" : scoreView,
+                         "imageView" : imageView,
+                         "description" : description]
         let hcStringScoreView = "H:|-1-[scoreView]-1-|"
-        let vcStringScoreView = "V:|-1-[scoreView]-1-|"
-        let horizontalConstraintMainView = NSLayoutConstraint.constraintsWithVisualFormat(hcStringScoreView, options: NSLayoutFormatOptions.AlignAllBottom, metrics: nil, views: mainViews)
-        let verticalConstraintMainView = NSLayoutConstraint.constraintsWithVisualFormat(vcStringScoreView, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: mainViews)
-        self.addConstraints(horizontalConstraintMainView)
-        self.addConstraints(verticalConstraintMainView)
+        let hcStringImageView = "H:|-1-[imageView]-1-|"
+        let vcStringScoreView = "V:|-1-[scoreView]-1-[imageView(\(heightOfImageView))]-1-[description]-1-|"
+        let hcStringDescription = "H:|-1-[description]-1-|"
+
+        let hcScoreView = NSLayoutConstraint.constraintsWithVisualFormat(hcStringScoreView, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: mainViews)
+        let hcImageView = NSLayoutConstraint.constraintsWithVisualFormat(hcStringImageView, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: mainViews)
+        let hcDescription = NSLayoutConstraint.constraintsWithVisualFormat(hcStringDescription, options: NSLayoutFormatOptions.AlignAllBottom, metrics: nil, views: mainViews)
+        let vcScoreView = NSLayoutConstraint.constraintsWithVisualFormat(vcStringScoreView, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: mainViews)
+        self.addConstraints(hcScoreView)
+        self.addConstraints(hcImageView)
+        self.addConstraints(hcDescription)
+        self.addConstraints(vcScoreView)
     }
 }
