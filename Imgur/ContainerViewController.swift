@@ -23,7 +23,7 @@ class ContainerViewController: UIViewController {
         tabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
         let gridViewController = GridViewController()
         let listViewController = ListViewController()
-        let staggerdViewController = StaggerdViewController()
+        let staggerdViewController = FullScreenViewController()
         let controllers = [gridViewController, listViewController, staggerdViewController]
         tabBarController.viewControllers = controllers
 
