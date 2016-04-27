@@ -7,10 +7,9 @@
 //
 
 import UIKit
-
+import SDWebImage
 class FullScreenViewController: UIViewController {
     var imageInformation : NSDictionary!
-    var image : UIImage!
     private var imageHeight : CGFloat!
     private var imageWidth : CGFloat!
     private let heightOfScoreView : CGFloat = 49.0
@@ -44,16 +43,37 @@ class FullScreenViewController: UIViewController {
         let width = informationDict[DataType.Width.rawValue]! as String
         self.imageWidth = CGFloat(Int(width)!)
         self.imageHeight = CGFloat(Int(height)!)
+        // Add ScoreView
         let scoreView = ScoreView(frame: self.view.frame, imageInformation: informationDict)
         scoreView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(scoreView)
-        
-        let imageView = UIImageView(image: AssetsManager.getImage(Image.Test))
+
+        let link = "https://upload.wikimedia.org/wikipedia/commons/e/e9/Felis_silvestris_silvestris_small_gradual_decrease_of_quality.png"
+        let imageUrl = NSURL(string: link)
+        // Add ProgressBar and ImageView
+        let imageView = UIImageView(image: AssetsManager.getImage(Image.PlaceHolder))
+        let progressBar = UIProgressView()
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
+        progressBar.progressTintColor = UIColor.greenColor()
+        imageView.addSubview(progressBar)
+
+        let manager = SDWebImageManager.sharedManager()
+        manager.downloadImageWithURL(imageUrl, options: SDWebImageOptions.ContinueInBackground, progress: { (receivedSize, expectedSize) in
+            let progress = (Float(receivedSize) / Float(expectedSize));
+            progressBar.progress = progress
+        }) { (image, error, cacheType, finished, url) in
+            if (error == nil) && finished {
+                imageView.image = image
+                progressBar.hidden = true
+            } else {
+                print(error.localizedDescription)
+            }
+        }
         imageView.contentMode = .ScaleAspectFit
         imageView.backgroundColor = UIColor.blackColor()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(imageView)
-        
+        // Add image descriptionView
         descriptionView = UITextView()
         if let dis = informationDict[DataType.Description.rawValue] {
             descriptionView.text = dis
@@ -66,12 +86,27 @@ class FullScreenViewController: UIViewController {
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         descriptionView.backgroundColor = UIColor.darkGrayColor()
         contentView.addSubview(descriptionView)
-
         let views = ["contentView" : contentView,
                      "scoreView" : scoreView,
                      "scrollView" : scrollView,
                      "imageView" : imageView,
-                     "descriptionView" : descriptionView]
+                     "descriptionView" : descriptionView,
+                     "progressBar" : progressBar]
+        // ProgressBar constraints
+        let hcStringProgressBar = "H:|-0-[progressBar]-0-|"
+        let vcStringProgressBar = "V:|-0-[progressBar]"
+        let hcProgressBar = NSLayoutConstraint.constraintsWithVisualFormat(hcStringProgressBar,
+                                                                           options: NSLayoutFormatOptions.AlignAllTop,
+                                                                           metrics: nil,
+                                                                           views: views)
+        let vcProgressBar = NSLayoutConstraint.constraintsWithVisualFormat(vcStringProgressBar,
+                                                                           options: NSLayoutFormatOptions.AlignAllLeft,
+                                                                           metrics: nil,
+                                                                           views: views)
+        imageView.addConstraints(hcProgressBar)
+        imageView.addConstraints(vcProgressBar)
+
+        // ScrollView constraints
         let hcStringScrollView = "H:|-0-[scrollView]-0-|"
         let vcStringScrollView = "V:|-0-[scrollView]-0-|"
         let hcScrollView = NSLayoutConstraint.constraintsWithVisualFormat(hcStringScrollView,
@@ -84,7 +119,7 @@ class FullScreenViewController: UIViewController {
                                                                           views: views)
         self.view.addConstraints(vcScrollView)
         self.view.addConstraints(hcScrollView)
-
+        // ScoreView Constraint
         let hcStringScoreView = "H:|-0-[scoreView(imageView)]-0-|"
         let vcStringScoreView = "V:|-0-[scoreView(\(heightOfScoreView))]-[imageView]"
         let hcScoreView = NSLayoutConstraint.constraintsWithVisualFormat(hcStringScoreView,
@@ -97,13 +132,12 @@ class FullScreenViewController: UIViewController {
                                                                          views: views)
         contentView.addConstraints(hcScoreView)
         contentView.addConstraints(vcScoreView)
-
+        // Image View constraint
         let heightOfImageView = getHeightOfImageView()
-
         let vcStringImageView = "V:[imageView(\(heightOfImageView))]"
         imageViewHC = NSLayoutConstraint.constraintsWithVisualFormat(vcStringImageView, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
         imageView.addConstraints(imageViewHC)
-        
+        // Description View constraint
         let hcStringDescription = "H:|-0-[descriptionView]-0-|"
         let vcStringDescription = "V:[imageView]-0-[descriptionView]-0-|"
         let hcDescriptionView = NSLayoutConstraint.constraintsWithVisualFormat(hcStringDescription,
@@ -116,7 +150,7 @@ class FullScreenViewController: UIViewController {
                                                                                views: views)
         contentView.addConstraints(vcDescriptionView)
         contentView.addConstraints(hcDescriptionView)
-        
+        // Scroll view content View constraint
         let hcString = "H:|-0-[contentView(scrollView)]-0-|"
         let vcString = "V:|-64-[contentView]-49-|"
         let hcStringContentView = "V:[contentView(\(heightOfImageView + heightOfScoreView + self.getHeightOfTextView(descriptionView)))]"
@@ -142,7 +176,7 @@ class FullScreenViewController: UIViewController {
         let heightOfImageView = (self.imageHeight * widthOFScreen) / self.imageWidth
         return heightOfImageView
     }
-
+    // handle orientation
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animateAlongsideTransition({ (UIViewControllerTransitionCoordinatorContext) in
             let orient = UIApplication.sharedApplication().statusBarOrientation

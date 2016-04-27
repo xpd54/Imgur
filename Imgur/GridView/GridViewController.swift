@@ -41,7 +41,10 @@ class GridViewController: UIViewController {
         let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(vcString, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: views)
         self.view.addConstraints(horizontalConstranint)
         self.view.addConstraints(verticalConstraints)
-        self.loadImgurData(0)
+        let queue = dispatch_queue_create("com.xpd54.imgurLoadData", nil)
+        dispatch_async(queue) { 
+            self.loadImgurData(0)
+        }
     }
 
     func loadImgurData(pageNo:Int) {
@@ -49,7 +52,9 @@ class GridViewController: UIViewController {
         CoreApi.makeApiCallForUrlEndPoint(endPoint, method: NetworkMethod.GET, apiData: nil) { (response) in
             let imgurDataList = DataManager.getListOfData(response)
             DataInMemoryCache.sharedInstance.imgurData.addObjectsFromArray(imgurDataList as [AnyObject])
-            self.gridView.reloadData()
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.gridView.reloadData()
+            })
         }
     }
 
@@ -98,6 +103,10 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        print("mofo is here")
     }
 }
 
