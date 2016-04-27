@@ -18,6 +18,7 @@ enum DataType : NSString {
     case ImageLink = "link"
     case Height  = "height"
     case Width = "width"
+    case Image = "Image"
 }
 
 private let imageCache = SDImageCache.sharedImageCache()

@@ -75,7 +75,7 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! GridCollectionViewCell
-        let cellData = DataInMemoryCache.sharedInstance.imgurData.objectAtIndex(indexPath.row) as! NSDictionary
+        let cellData = DataInMemoryCache.sharedInstance.imgurData.objectAtIndex(indexPath.row) as! NSMutableDictionary
         if let discription = cellData.objectForKey(DataType.Description.rawValue) {
             cell.textLabel.text = discription as? String
         }
@@ -88,7 +88,14 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.progressView.progress = progress
         }) { (image, error, cacheType, finished, url) in
             if (error == nil) && finished {
-                cell.imageView.image = image
+                var downloadedImage = image
+                if cellData.objectForKey(DataType.Image.rawValue) != nil {
+                    downloadedImage = cellData.objectForKey(DataType.Image.rawValue) as? UIImage
+                } else {
+                    cellData.setObject(downloadedImage, forKey: DataType.Image.rawValue)
+                    DataInMemoryCache.sharedInstance.imgurData.replaceObjectAtIndex(indexPath.row, withObject: cellData)
+                }
+                cell.imageView.image = downloadedImage
                 cell.progressView.hidden = true
             } else {
                 print(error.localizedDescription)
@@ -106,7 +113,12 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("mofo is here")
+        let cellData = DataInMemoryCache.sharedInstance.imgurData.objectAtIndex(indexPath.row) as! NSDictionary
+        let fullScreenViewController = FullScreenViewController()
+        print(cellData)
+        fullScreenViewController.imageInformation = cellData
+        let navController = UINavigationController(rootViewController: fullScreenViewController)
+        self.presentViewController(navController, animated: true, completion: nil)
     }
 }
 

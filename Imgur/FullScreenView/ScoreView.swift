@@ -25,9 +25,9 @@ class ScoreView: UIView {
     private func setUpView(imageInformation:NSDictionary) {
         self.backgroundColor = UIColor.lightGrayColor()
         self.title = imageInformation.objectForKey(DataType.Title.rawValue) as! String
-        self.upVote = imageInformation.objectForKey(DataType.UpVote.rawValue) as! String
-        self.downVote = imageInformation.objectForKey(DataType.DownVote.rawValue) as! String
-        self.score = imageInformation.objectForKey(DataType.Score.rawValue) as! String
+        self.upVote = "\(imageInformation.objectForKey(DataType.UpVote.rawValue) as! Int)"
+        self.downVote = "\(imageInformation.objectForKey(DataType.DownVote.rawValue) as! Int)"
+        self.score = "\(imageInformation.objectForKey(DataType.Score.rawValue) as! Int)"
 
         let titleView = UILabel()
         titleView.translatesAutoresizingMaskIntoConstraints = false

@@ -16,8 +16,10 @@ class FullScreenViewController: UIViewController {
     private var imageViewHC : [NSLayoutConstraint]!
     private var contentViewHC : [NSLayoutConstraint]!
     private var descriptionView : UITextView!
+    private var navController = UINavigationController()
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar((self.navigationController?.navigationBar)!)
         // Do any additional setup after loading the view.
     }
     
@@ -31,24 +33,24 @@ class FullScreenViewController: UIViewController {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentView)
-
-        let informationDict = [DataType.Title.rawValue : "Title",
-                               DataType.Description.rawValue : "Description a quick dog jums ober the lazy dog ye he did so what you wanna do do exactly that's ok Description a quick dog jums ober the lazy dog ye he did so what you wanna do do exactly that's ok Description a quick dog jums ober the lazy dog ye he did so what you wanna do do exactly that's ok ",
-                               DataType.UpVote.rawValue: "10",
-                               DataType.DownVote.rawValue: "20",
-                               DataType.Score.rawValue: "12",
-                               DataType.Height.rawValue: "150",
-                               DataType.Width.rawValue: "150"]
-        let height = informationDict[DataType.Height.rawValue]! as String
-        let width = informationDict[DataType.Width.rawValue]! as String
-        self.imageWidth = CGFloat(Int(width)!)
-        self.imageHeight = CGFloat(Int(height)!)
+//
+//        let informationDict = [DataType.Title.rawValue : "Title",
+//                               DataType.Description.rawValue : "Description a quick dog jums ober the lazy dog ye he did so what you wanna do do exactly that's ok Description a quick dog jums ober the lazy dog ye he did so what you wanna do do exactly that's ok Description a quick dog jums ober the lazy dog ye he did so what you wanna do do exactly that's ok ",
+//                               DataType.UpVote.rawValue: "10",
+//                               DataType.DownVote.rawValue: "20",
+//                               DataType.Score.rawValue: "12",
+//                               DataType.Height.rawValue: "150",
+//                               DataType.Width.rawValue: "150"]
+        let height = imageInformation.objectForKey(DataType.Height.rawValue) as! Int
+        let width = imageInformation.objectForKey(DataType.Width.rawValue) as! Int
+        self.imageWidth = CGFloat(width)
+        self.imageHeight = CGFloat(height)
         // Add ScoreView
-        let scoreView = ScoreView(frame: self.view.frame, imageInformation: informationDict)
+        let scoreView = ScoreView(frame: self.view.frame, imageInformation: imageInformation)
         scoreView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(scoreView)
 
-        let link = "https://upload.wikimedia.org/wikipedia/commons/e/e9/Felis_silvestris_silvestris_small_gradual_decrease_of_quality.png"
+        let link = imageInformation.objectForKey(DataType.ImageLink.rawValue) as! String
         let imageUrl = NSURL(string: link)
         // Add ProgressBar and ImageView
         let imageView = UIImageView(image: AssetsManager.getImage(Image.PlaceHolder))
@@ -56,17 +58,22 @@ class FullScreenViewController: UIViewController {
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         progressBar.progressTintColor = UIColor.greenColor()
         imageView.addSubview(progressBar)
-
-        let manager = SDWebImageManager.sharedManager()
-        manager.downloadImageWithURL(imageUrl, options: SDWebImageOptions.ContinueInBackground, progress: { (receivedSize, expectedSize) in
-            let progress = (Float(receivedSize) / Float(expectedSize));
-            progressBar.progress = progress
-        }) { (image, error, cacheType, finished, url) in
-            if (error == nil) && finished {
-                imageView.image = image
-                progressBar.hidden = true
-            } else {
-                print(error.localizedDescription)
+        // Download image or set if it's stored in cache
+        if let image = imageInformation.objectForKey(DataType.Image.rawValue) as? UIImage {
+            imageView.image = image
+            progressBar.hidden = true
+        } else {
+            let manager = SDWebImageManager.sharedManager()
+            manager.downloadImageWithURL(imageUrl, options: SDWebImageOptions.ContinueInBackground, progress: { (receivedSize, expectedSize) in
+                let progress = (Float(receivedSize) / Float(expectedSize));
+                progressBar.progress = progress
+            }) { (image, error, cacheType, finished, url) in
+                if (error == nil) && finished {
+                    imageView.image = image
+                    progressBar.hidden = true
+                } else {
+                    print(error.localizedDescription)
+                }
             }
         }
         imageView.contentMode = .ScaleAspectFit
@@ -75,8 +82,8 @@ class FullScreenViewController: UIViewController {
         contentView.addSubview(imageView)
         // Add image descriptionView
         descriptionView = UITextView()
-        if let dis = informationDict[DataType.Description.rawValue] {
-            descriptionView.text = dis
+        if let des = imageInformation.objectForKey(DataType.Description.rawValue) as? String {
+                descriptionView.text = des
         }
         descriptionView.textAlignment = .Left
         descriptionView.editable = false
@@ -152,7 +159,7 @@ class FullScreenViewController: UIViewController {
         contentView.addConstraints(hcDescriptionView)
         // Scroll view content View constraint
         let hcString = "H:|-0-[contentView(scrollView)]-0-|"
-        let vcString = "V:|-64-[contentView]-49-|"
+        let vcString = "V:|-0-[contentView]-0-|"
         let hcStringContentView = "V:[contentView(\(heightOfImageView + heightOfScoreView + self.getHeightOfTextView(descriptionView)))]"
         let hc = NSLayoutConstraint.constraintsWithVisualFormat(hcString,
                                                                 options: NSLayoutFormatOptions.AlignAllBottom,
@@ -182,14 +189,16 @@ class FullScreenViewController: UIViewController {
             let orient = UIApplication.sharedApplication().statusBarOrientation
             switch orient {
             default:
-                if (self.view != nil) {
+                if (self.imageInformation != nil) {
                     self.recalculateConstraints()
                 }
             }
         }) { (UIViewControllerTransitionCoordinatorContext) in
-            UIView.animateWithDuration(0.5, animations: {
-                self.view.layoutIfNeeded()
-            })
+            if (self.imageInformation != nil) {
+                UIView.animateWithDuration(0.5, animations: {
+                    self.view.layoutIfNeeded()
+                })
+            }
         }
     }
 
@@ -212,6 +221,20 @@ class FullScreenViewController: UIViewController {
         return size.height
     }
 
+    private func setupNavigationBar(navigationBar: UINavigationBar) {
+        ViewEffect.addShadowEffect(navigationBar, opacity: 1.0)
+        navigationBar.translucent = false
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        let closeButtonTitle = "Close"
+        let closeButton = UIBarButtonItem(title: closeButtonTitle, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.closeView))
+        self.navigationItem.leftBarButtonItem = closeButton
+        self.navigationItem.title = "Image"
+    }
+    
+    func closeView() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
