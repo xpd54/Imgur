@@ -56,20 +56,6 @@ class ListViewController: UIViewController {
         self.view.addConstraints(horizontalConstraintImageView)
     }
 
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animateAlongsideTransition({ (UIViewControllerTransitionCoordinatorContext) in
-            let orient = UIApplication.sharedApplication().statusBarOrientation
-            switch orient {
-            case .Portrait:
-                print("Portrait")
-            default:
-                print("nothing")
-            }
-            }) { (UIViewControllerTransitionCoordinatorContext) in
-                print("rotation complete")
-        }
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

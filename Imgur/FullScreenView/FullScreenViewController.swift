@@ -143,7 +143,35 @@ class FullScreenViewController: UIViewController {
         let heightOfImageView = (self.imageHeight * widthOFScreen) / self.imageWidth
         return heightOfImageView
     }
-    
+
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animateAlongsideTransition({ (UIViewControllerTransitionCoordinatorContext) in
+            let orient = UIApplication.sharedApplication().statusBarOrientation
+            switch orient {
+            default:
+                self.recalculateConstraints()
+            }
+        }) { (UIViewControllerTransitionCoordinatorContext) in
+            UIView.animateWithDuration(0.5, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+
+    private func recalculateConstraints() {
+        for constraint in self.imageViewHC {
+            if constraint.firstAttribute == NSLayoutAttribute.Height && constraint.secondAttribute == NSLayoutAttribute.NotAnAttribute{
+                constraint.constant = self.getHeightOfImageView()
+            }
+        }
+        
+        for constraint in self.contentViewHC {
+            if constraint.firstAttribute == NSLayoutAttribute.Height && constraint.secondAttribute == NSLayoutAttribute.NotAnAttribute{
+                constraint.constant = self.heightOfDescriptionView + self.heightOfScoreView + self.getHeightOfImageView()
+            }
+        }
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
