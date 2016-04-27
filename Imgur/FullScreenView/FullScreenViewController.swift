@@ -16,7 +16,11 @@ class FullScreenViewController: UIViewController {
     var imageView : UIImageView!
     var image : UIImage!
     var descriptionView : UITextView!
-    var imageDescription: String!
+    var imageDescription : String!
+    var imageHeight : CGFloat!
+    var imageWidth : CGFloat!
+    private let heightOfScoreView : CGFloat = 49.0
+    private let heightOfDescriptionView : CGFloat = 150.0
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -26,9 +30,9 @@ class FullScreenViewController: UIViewController {
         super.loadView()
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = UIColor.greenColor()
+        scrollView.backgroundColor = UIColor.darkGrayColor()
         self.view.addSubview(scrollView)
-
+        
         contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentView)
@@ -40,6 +44,11 @@ class FullScreenViewController: UIViewController {
                                DataType.Score.rawValue: "12",
                                DataType.Height.rawValue: "150",
                                DataType.Width.rawValue: "150"]
+        let height = informationDict[DataType.Height.rawValue]! as String
+        let width = informationDict[DataType.Width.rawValue]! as String
+        self.imageWidth = CGFloat(Int(width)!)
+        self.imageHeight = CGFloat(Int(height)!)
+
         scoreView = ScoreView(frame: self.view.frame, imageInformation: informationDict)
         scoreView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(scoreView)
@@ -55,11 +64,12 @@ class FullScreenViewController: UIViewController {
             self.imageDescription = dis
         }
         descriptionView.text = imageDescription
-        descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionView.textAlignment = .Left
         descriptionView.editable = false
         descriptionView.selectable = false
         descriptionView.sizeToFit()
-        descriptionView.backgroundColor = UIColor.lightGrayColor()
+        descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionView.backgroundColor = UIColor.darkGrayColor()
         contentView.addSubview(descriptionView)
         
         let views = ["contentView" : contentView,
@@ -81,7 +91,7 @@ class FullScreenViewController: UIViewController {
         self.view.addConstraints(hcScrollView)
 
         let hcStringScoreView = "H:|-0-[scoreView(imageView)]-0-|"
-        let vcStringScoreView = "V:|-0-[scoreView(49)]"
+        let vcStringScoreView = "V:|-0-[scoreView(\(heightOfScoreView))]"
         let hcScoreView = NSLayoutConstraint.constraintsWithVisualFormat(hcStringScoreView,
                                                                          options: NSLayoutFormatOptions.AlignAllTop,
                                                                          metrics: nil,
@@ -93,7 +103,9 @@ class FullScreenViewController: UIViewController {
         contentView.addConstraints(hcScoreView)
         contentView.addConstraints(vcScoreView)
 
-        let vcStringImageView = "V:|-49-[imageView(300)]"
+        let heightOfImageView = getHeightOfImageView()
+
+        let vcStringImageView = "V:|-(\(heightOfScoreView))-[imageView(\(heightOfImageView))]"
         let vcImageView = NSLayoutConstraint.constraintsWithVisualFormat(vcStringImageView, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
         contentView.addConstraints(vcImageView)
         
@@ -111,7 +123,7 @@ class FullScreenViewController: UIViewController {
         contentView.addConstraints(hcDescriptionView)
         
         let hcString = "H:|-0-[contentView(scrollView)]-0-|"
-        let vcString = "V:|-64-[contentView(\(imageView.frame.size.height+scrollView.frame.size.height+self.heightOfTextView(descriptionView)))]-49-|"
+        let vcString = "V:|-64-[contentView(\(heightOfImageView + heightOfScoreView + heightOfDescriptionView))]-49-|"
         let hc = NSLayoutConstraint.constraintsWithVisualFormat(hcString,
                                                                 options: NSLayoutFormatOptions.AlignAllBottom,
                                                                 metrics: nil,
@@ -125,9 +137,10 @@ class FullScreenViewController: UIViewController {
         scrollView.addConstraints(vc)
     }
     
-    func heightOfTextView(textView: UITextView) -> CGFloat {
-        let textViewSize = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(FLT_MAX)))
-        return textViewSize.height
+    private func getHeightOfImageView() -> CGFloat {
+        let widthOFScreen = UIScreen.mainScreen().bounds.width
+        let heightOfImageView = (self.imageHeight * widthOFScreen) / self.imageWidth
+        return heightOfImageView
     }
     
     override func didReceiveMemoryWarning() {

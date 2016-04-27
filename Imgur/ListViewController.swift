@@ -47,16 +47,13 @@ class ListViewController: UIViewController {
         let hcStringFullScreen = "H:|-0-[scoreView(descriptionView)]-0-|"
         let vcStringFullScreen = "V:|-64-[scoreView(49)]-1-[imageView(\(heightOfImageView))]-1-[descriptionView]-0-|"
         let hcStringImageView = "H:|-0-[imageView(descriptionView)]-0-|"
-        let hcStringDescription = "H:|-0-[descriptionView]-0-|"
         let horizontalConstraintImageView = NSLayoutConstraint.constraintsWithVisualFormat(hcStringImageView, options: NSLayoutFormatOptions.AlignAllBottom, metrics: nil, views: views)
         let horizontalConstraintScore = NSLayoutConstraint.constraintsWithVisualFormat(hcStringFullScreen, options: NSLayoutFormatOptions.AlignAllBottom, metrics: nil, views: views)
-        let horizontalConstraintDescription = NSLayoutConstraint.constraintsWithVisualFormat(hcStringDescription, options: NSLayoutFormatOptions.AlignAllBottom, metrics: nil, views: views)
         let verticalConstraintScore = NSLayoutConstraint.constraintsWithVisualFormat(vcStringFullScreen, options:
             NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
         self.view.addConstraints(horizontalConstraintScore)
         self.view.addConstraints(verticalConstraintScore)
         self.view.addConstraints(horizontalConstraintImageView)
-//        self.view.addConstraints(horizontalConstraintDescription)
     }
 
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
