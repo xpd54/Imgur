@@ -100,7 +100,12 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    
+        let cellData = DataInMemoryCache.sharedInstance.imgurData.objectAtIndex(indexPath.row) as! NSDictionary
+        let fullScreenViewController = FullScreenViewController()
+        fullScreenViewController.imageInformation = cellData
+        let navController = UINavigationController(rootViewController: fullScreenViewController)
+        self.presentViewController(navController, animated: true, completion: nil)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
 
