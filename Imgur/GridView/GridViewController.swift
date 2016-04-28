@@ -36,7 +36,7 @@ class GridViewController: UIViewController {
         self.view.addSubview(gridView)
         let views = ["gridView" : gridView]
         let hcString = "H:|-0-[gridView]-0-|"
-        let vcString = "V:|-64-[gridView]-0-|"
+        let vcString = "V:|-64-[gridView]-49-|"
         let horizontalConstranint = NSLayoutConstraint.constraintsWithVisualFormat(hcString, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
         let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(vcString, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: views)
         self.view.addConstraints(horizontalConstranint)

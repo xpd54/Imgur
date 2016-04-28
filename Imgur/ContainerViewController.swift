@@ -12,10 +12,16 @@ class ContainerViewController: UIViewController {
     let GRID = "Grid"
     let LIST = "List"
     let STAGGRED = "Staggerd"
+    var containerNavigationController: UINavigationController!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+//    override func loadView() {
+//        super.loadView()
+//    }
+
 
     override func loadView() {
         super.loadView()
@@ -23,7 +29,7 @@ class ContainerViewController: UIViewController {
         tabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
         let gridViewController = GridViewController()
         let listViewController = ListViewController()
-        let staggerdViewController = FullScreenViewController()
+        let staggerdViewController = StaggerdViewController()
         let controllers = [gridViewController, listViewController, staggerdViewController]
         tabBarController.viewControllers = controllers
 
@@ -43,8 +49,8 @@ class ContainerViewController: UIViewController {
         self.addCustomNavigationBar()
     }
 
-    func addCustomNavigationBar() -> UIView {
-        let navigationBar = UIView()
+    func addCustomNavigationBar() -> UINavigationBar {
+        let navigationBar = UINavigationBar()
         navigationBar.backgroundColor = UIColor.lightGrayColor()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(navigationBar)

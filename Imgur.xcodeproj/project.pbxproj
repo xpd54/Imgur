@@ -16,8 +16,9 @@
 		4A0111D61CCBF6620059428F /* DataInMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0111D51CCBF6620059428F /* DataInMemoryCache.swift */; };
 		4AB93AB71CCFAC9C00706D8A /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB93AB61CCFAC9B00706D8A /* FullScreenViewController.swift */; };
 		4ABCC1261CC91DB500AFE732 /* StaggerdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABCC1251CC91DB500AFE732 /* StaggerdViewController.swift */; };
+		4AF0D58B1CD1FCD100B28260 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF0D58A1CD1FCD100B28260 /* ListViewController.swift */; };
+		4AF0D58D1CD1FD0500B28260 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF0D58C1CD1FD0500B28260 /* ListTableViewCell.swift */; };
 		A30B17AE1CCF2A4800AE74D8 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30B17AD1CCF2A4800AE74D8 /* ScoreView.swift */; };
-		A3DF09D71CC749BE00FFB9CD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */; };
 		A3DF09D91CC74F9600FFB9CD /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */; };
 		A3DF09DC1CC78D7800FFB9CD /* AssetsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF09DB1CC78D7800FFB9CD /* AssetsManager.swift */; };
 		A3FCD6431CC5F7CE00B8471C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */; };
@@ -49,8 +50,9 @@
 		4A0111D51CCBF6620059428F /* DataInMemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataInMemoryCache.swift; path = DataManager/DataInMemoryCache.swift; sourceTree = "<group>"; };
 		4AB93AB61CCFAC9B00706D8A /* FullScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		4ABCC1251CC91DB500AFE732 /* StaggerdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaggerdViewController.swift; sourceTree = "<group>"; };
+		4AF0D58A1CD1FCD100B28260 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewController.swift; path = ListView/ListViewController.swift; sourceTree = "<group>"; };
+		4AF0D58C1CD1FD0500B28260 /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListTableViewCell.swift; path = ListView/ListTableViewCell.swift; sourceTree = "<group>"; };
 		A30B17AD1CCF2A4800AE74D8 /* ScoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
-		A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		A3DF09DB1CC78D7800FFB9CD /* AssetsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssetsManager.swift; path = AssetsManager/AssetsManager.swift; sourceTree = "<group>"; };
 		A3FCD63F1CC5F7CE00B8471C /* Imgur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imgur.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,15 @@
 			name = StoryBoards;
 			sourceTree = "<group>";
 		};
+		4AF0D5891CD1FCA000B28260 /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				4AF0D58A1CD1FCD100B28260 /* ListViewController.swift */,
+				4AF0D58C1CD1FD0500B28260 /* ListTableViewCell.swift */,
+			);
+			name = ListView;
+			sourceTree = "<group>";
+		};
 		55772A4EE9447402D54C03DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,7 +191,7 @@
 				A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */,
 				A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */,
 				4A0111C11CCB52900059428F /* GridView */,
-				A3DF09D61CC749BE00FFB9CD /* ListViewController.swift */,
+				4AF0D5891CD1FCA000B28260 /* ListView */,
 				4ABCC1251CC91DB500AFE732 /* StaggerdViewController.swift */,
 				A3603F671CCDF55E000C58D0 /* FullScreenView */,
 				4A0111CE1CCBE4820059428F /* ViewEffect */,
@@ -372,12 +383,13 @@
 				A3DF09DC1CC78D7800FFB9CD /* AssetsManager.swift in Sources */,
 				4A0111C31CCB52BD0059428F /* GridCollectionViewCell.swift in Sources */,
 				4A0111CA1CCB7B780059428F /* CoreApi.swift in Sources */,
+				4AF0D58B1CD1FCD100B28260 /* ListViewController.swift in Sources */,
 				A3DF09D91CC74F9600FFB9CD /* ContainerViewController.swift in Sources */,
-				A3DF09D71CC749BE00FFB9CD /* ListViewController.swift in Sources */,
 				A30B17AE1CCF2A4800AE74D8 /* ScoreView.swift in Sources */,
 				4AB93AB71CCFAC9C00706D8A /* FullScreenViewController.swift in Sources */,
 				A3FCD6431CC5F7CE00B8471C /* AppDelegate.swift in Sources */,
 				4A0111D01CCBE4820059428F /* ViewEffect.swift in Sources */,
+				4AF0D58D1CD1FD0500B28260 /* ListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

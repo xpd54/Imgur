@@ -33,14 +33,6 @@ class FullScreenViewController: UIViewController {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentView)
-//
-//        let informationDict = [DataType.Title.rawValue : "Title",
-//                               DataType.Description.rawValue : "Description a quick dog jums ober the lazy dog ye he did so what you wanna do do exactly that's ok Description a quick dog jums ober the lazy dog ye he did so what you wanna do do exactly that's ok Description a quick dog jums ober the lazy dog ye he did so what you wanna do do exactly that's ok ",
-//                               DataType.UpVote.rawValue: "10",
-//                               DataType.DownVote.rawValue: "20",
-//                               DataType.Score.rawValue: "12",
-//                               DataType.Height.rawValue: "150",
-//                               DataType.Width.rawValue: "150"]
         let height = imageInformation.objectForKey(DataType.Height.rawValue) as! Int
         let width = imageInformation.objectForKey(DataType.Width.rawValue) as! Int
         self.imageWidth = CGFloat(width)
