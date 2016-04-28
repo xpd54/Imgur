@@ -8,28 +8,25 @@
 
 import UIKit
 
-class ContainerViewController: UIViewController {
+class ContainerViewController: UIViewController, ImgurData {
     let GRID = "Grid"
     let LIST = "List"
     let STAGGRED = "Staggerd"
-    var containerNavigationController: UINavigationController!
+    var gridViewController : GridViewController!
+    var listViewController : ListViewController!
+    var staggerdViewController : StaggerdViewController!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    
-//    override func loadView() {
-//        super.loadView()
-//    }
-
 
     override func loadView() {
         super.loadView()
         let tabBarController = UITabBarController()
         tabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
-        let gridViewController = GridViewController()
-        let listViewController = ListViewController()
-        let staggerdViewController = StaggerdViewController()
+        gridViewController = GridViewController()
+        listViewController = ListViewController()
+        staggerdViewController = StaggerdViewController()
         let controllers = [gridViewController, listViewController, staggerdViewController]
         tabBarController.viewControllers = controllers
 
@@ -47,6 +44,9 @@ class ContainerViewController: UIViewController {
         self.addChildViewController(tabBarController)
         tabBarController.didMoveToParentViewController(self)
         self.addCustomNavigationBar()
+        let dataLoder = DataLoader()
+        dataLoder.loadImgurData(0)
+        dataLoder.dataDeligate = self
     }
 
     func addCustomNavigationBar() -> UINavigationBar {
@@ -64,7 +64,18 @@ class ContainerViewController: UIViewController {
         ViewEffect.addShadowEffect(navigationBar, opacity: 1.0)
         return navigationBar
     }
-
+    
+    func imgurDataGotLoaded() {
+        if gridViewController.gridView != nil {
+            gridViewController.gridView.reloadData()
+        }
+        
+        if listViewController.tableView != nil {
+            listViewController.tableView.reloadData()
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

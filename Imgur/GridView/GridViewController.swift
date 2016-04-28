@@ -11,9 +11,9 @@ import SDWebImage
 class GridViewController: UIViewController {
 
     var heightOfTabBar = CGFloat()
+    var gridView : UICollectionView!
     private let cellWidth = 96
     private let reuseIdentifier = "ImgurCell"
-    private var gridView : UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -41,10 +41,6 @@ class GridViewController: UIViewController {
         let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(vcString, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: views)
         self.view.addConstraints(horizontalConstranint)
         self.view.addConstraints(verticalConstraints)
-        let queue = dispatch_queue_create("com.xpd54.imgurLoadData", nil)
-        dispatch_async(queue) { 
-            self.loadImgurData(0)
-        }
     }
 
     func loadImgurData(pageNo:Int) {
