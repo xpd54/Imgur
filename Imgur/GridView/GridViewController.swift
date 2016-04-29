@@ -43,17 +43,22 @@ class GridViewController: UIViewController {
         self.view.addConstraints(verticalConstraints)
     }
 
-    func loadImgurData(pageNo:Int) {
-        let endPoint = "hot/viral/\(pageNo).json"
-        CoreApi.makeApiCallForUrlEndPoint(endPoint, method: NetworkMethod.GET, apiData: nil) { (response) in
-            let imgurDataList = DataManager.getListOfData(response)
-            DataInMemoryCache.sharedInstance.imgurData.addObjectsFromArray(imgurDataList as [AnyObject])
-            dispatch_async(dispatch_get_main_queue(), { 
-                self.gridView.reloadData()
-            })
-        }
+    private func getCellWidth() -> CGFloat {
+        let widthOFScreen = UIScreen.mainScreen().bounds.width
+        //UIEdgeinsets is 5 pix
+        let width = (widthOFScreen - 20.0) / 2.0
+        return width;
     }
 
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animateAlongsideTransition({ (UIViewControllerTransitionCoordinatorContext) in
+            if self.gridView != nil {
+                self.gridView.reloadData()
+            }
+        }) { (UIViewControllerTransitionCoordinatorContext) in
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -101,6 +106,7 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        print("%f",self.getCellWidth())
         return CGSize(width: cellWidth, height: cellWidth)
     }
 
