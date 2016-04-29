@@ -14,7 +14,7 @@ class ContainerViewController: UIViewController, ImgurData {
     let STAGGRED = "Staggerd"
     var gridViewController : GridViewController!
     var listViewController : ListViewController!
-    var staggerdViewController : StaggerdViewController!
+    var staggerdViewController : GridViewController!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -25,8 +25,10 @@ class ContainerViewController: UIViewController, ImgurData {
         let tabBarController = UITabBarController()
         tabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
         gridViewController = GridViewController()
+        gridViewController.isGridView = true
         listViewController = ListViewController()
-        staggerdViewController = StaggerdViewController()
+        staggerdViewController = GridViewController()
+        staggerdViewController.isGridView = false
         let controllers = [gridViewController, listViewController, staggerdViewController]
         tabBarController.viewControllers = controllers
 
@@ -69,11 +71,14 @@ class ContainerViewController: UIViewController, ImgurData {
         if gridViewController.gridView != nil {
             gridViewController.gridView.reloadData()
         }
-        
+
         if listViewController.tableView != nil {
             listViewController.tableView.reloadData()
         }
-        
+
+        if staggerdViewController.gridView != nil {
+            staggerdViewController.gridView.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {

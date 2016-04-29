@@ -12,6 +12,7 @@ class GridViewController: UIViewController {
 
     var heightOfTabBar = CGFloat()
     var gridView : UICollectionView!
+    var isGridView : Bool!
     private let cellWidth = 96
     private let reuseIdentifier = "ImgurCell"
     override func viewDidLoad() {
@@ -48,6 +49,11 @@ class GridViewController: UIViewController {
         //UIEdgeinsets is 5 pix
         let width = (widthOFScreen - 20.0) / 2.0
         return width;
+    }
+
+    private func getCellHeight(imageHeight : CGFloat, imageWidth : CGFloat, cellWidth: CGFloat) -> CGFloat {
+        let heightOfImageView = (imageHeight * cellWidth) / imageWidth
+        return heightOfImageView
     }
 
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -106,8 +112,16 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        print("%f",self.getCellWidth())
-        return CGSize(width: cellWidth, height: cellWidth)
+        if (self.isGridView == true) {
+            return CGSize(width: cellWidth, height: cellWidth)
+        } else {
+            let cellData  = DataInMemoryCache.sharedInstance.imgurData.objectAtIndex(indexPath.row) as! NSDictionary
+            let imageHeight = cellData.objectForKey(DataType.Height.rawValue) as! CGFloat
+            let imageWidth = cellData.objectForKey(DataType.Width.rawValue) as! CGFloat
+            let width = getCellWidth()
+            let height = getCellHeight(imageHeight, imageWidth: imageWidth, cellWidth: width)
+            return CGSize(width: width, height: height)
+        }
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
