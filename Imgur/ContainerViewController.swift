@@ -12,11 +12,13 @@ class ContainerViewController: UIViewController, ImgurData {
     let GRID = "Grid"
     let LIST = "List"
     let STAGGRED = "Staggerd"
+    var containerNavigationController: UINavigationController!
     var gridViewController : GridViewController!
     var listViewController : ListViewController!
     var staggerdViewController : GridViewController!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.lightGrayColor()
         // Do any additional setup after loading the view.
     }
 
@@ -24,6 +26,7 @@ class ContainerViewController: UIViewController, ImgurData {
         super.loadView()
         let tabBarController = UITabBarController()
         tabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
+
         gridViewController = GridViewController()
         gridViewController.isGridView = true
         listViewController = ListViewController()
@@ -31,7 +34,6 @@ class ContainerViewController: UIViewController, ImgurData {
         staggerdViewController.isGridView = false
         let controllers = [gridViewController, listViewController, staggerdViewController]
         tabBarController.viewControllers = controllers
-
         let tabBarItems = tabBarController.tabBar.items! as [UITabBarItem]
         let firstTabBarItem = tabBarItems[0] as UITabBarItem
         let secondTabBarItem = tabBarItems[1] as UITabBarItem
@@ -45,26 +47,21 @@ class ContainerViewController: UIViewController, ImgurData {
         self.view.addSubview(tabBarController.view)
         self.addChildViewController(tabBarController)
         tabBarController.didMoveToParentViewController(self)
-        self.addCustomNavigationBar()
         let dataLoder = DataLoader()
         dataLoder.loadImgurData(0)
         dataLoder.dataDeligate = self
+        containerNavigationController = UINavigationController(rootViewController: tabBarController)
+        self.view.addSubview(containerNavigationController.view)
+        self.addChildViewController(containerNavigationController)
+        containerNavigationController.didMoveToParentViewController(self)
+        self.addCustomNavigationBar((self.containerNavigationController?.navigationBar)!)
     }
 
-    func addCustomNavigationBar() -> UINavigationBar {
-        let navigationBar = UINavigationBar()
-        navigationBar.backgroundColor = UIColor.lightGrayColor()
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(navigationBar)
-        let views = ["navigationBar" : navigationBar]
-        let hcString = "H:|-0-[navigationBar]-0-|"
-        let vcString = "V:|-0-[navigationBar(64)]"
-        let horizontalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(hcString, options:NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
-        let verticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(vcString, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: views)
-        self.view.addConstraints(horizontalConstraint)
-        self.view.addConstraints(verticalConstraint)
+    func addCustomNavigationBar(navigationBar : UINavigationBar) {
         ViewEffect.addShadowEffect(navigationBar, opacity: 1.0)
-        return navigationBar
+        navigationBar.barTintColor = UIColor.lightGrayColor()
+        navigationBar.translucent = false
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
     
     func imgurDataGotLoaded() {

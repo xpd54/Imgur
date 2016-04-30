@@ -35,7 +35,7 @@ class ListViewController: UIViewController {
         views.updateValue(tableView, forKey: "tableView")
         views.updateValue(self.view, forKey: "self")
         let hcString = "H:|-0-[tableView]-0-|"
-        let vcString = "V:|-64-[tableView]-49-|"
+        let vcString = "V:|-0-[tableView]-49-|"
         let horizontalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(hcString, options: NSLayoutFormatOptions.AlignAllCenterX, metrics: nil, views: views)
         let verticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(vcString, options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: views)
         self.view.addConstraints(horizontalConstraint)
@@ -106,6 +106,21 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         let navController = UINavigationController(rootViewController: fullScreenViewController)
         self.presentViewController(navController, animated: true, completion: nil)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+}
+
+extension ListViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let traslation = scrollView.panGestureRecognizer.translationInView(scrollView.superview)
+        if traslation.y > 0{
+            print("done down \(traslation.y)")
+        } else {
+            print("done up\(traslation.y)")
+        }
+    }
+
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+
     }
 }
 
