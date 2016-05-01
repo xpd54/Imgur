@@ -16,7 +16,8 @@ public enum Image: String {
     case UVote = "upVote"
     case DVote = "downVote"
     case Score = "score"
-    case Test = "test"
+    case Info = "info"
+    case Config = "config"
 }
 class AssetsManager: NSObject {
     static func getImage(imageName : Image) -> UIImage {

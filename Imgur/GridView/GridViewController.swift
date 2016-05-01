@@ -14,8 +14,6 @@ class GridViewController: UIViewController {
     var isGridView : Bool!
     private let cellWidth = 96
     private let reuseIdentifier = "ImgurCell"
-    private let gridNavigationTitle = "Grid"
-    private let staggerdNavigationTitle = "Staggerd"
     private var navigationTitle : String {
         if isGridView == true {
             return "Grid"
@@ -146,6 +144,14 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
         let fullScreenViewController = FullScreenViewController()
         fullScreenViewController.imageInformation = cellData
         self.navigationController?.pushViewController(fullScreenViewController, animated: true)
+    }
+    
+    func showInformation() {
+        
+    }
+    
+    func showConfig() {
+        
     }
 }
 

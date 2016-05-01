@@ -16,6 +16,7 @@ class ContainerViewController: UIViewController, ImgurData {
     var gridViewController : GridViewController!
     var listViewController : ListViewController!
     var staggerdViewController : GridViewController!
+    var appTabBarController : UITabBarController!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightGrayColor()
@@ -24,8 +25,8 @@ class ContainerViewController: UIViewController, ImgurData {
 
     override func loadView() {
         super.loadView()
-        let tabBarController = UITabBarController()
-        tabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
+        appTabBarController = UITabBarController()
+        appTabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
 
         gridViewController = GridViewController()
         gridViewController.isGridView = true
@@ -33,8 +34,8 @@ class ContainerViewController: UIViewController, ImgurData {
         staggerdViewController = GridViewController()
         staggerdViewController.isGridView = false
         let controllers = [gridViewController, listViewController, staggerdViewController]
-        tabBarController.viewControllers = controllers
-        let tabBarItems = tabBarController.tabBar.items! as [UITabBarItem]
+        appTabBarController.viewControllers = controllers
+        let tabBarItems = appTabBarController.tabBar.items! as [UITabBarItem]
         let firstTabBarItem = tabBarItems[0] as UITabBarItem
         let secondTabBarItem = tabBarItems[1] as UITabBarItem
         let thirdTabBarItem = tabBarItems[2] as UITabBarItem
@@ -44,18 +45,16 @@ class ContainerViewController: UIViewController, ImgurData {
         firstTabBarItem.image = AssetsManager.getImage(Image.Grid)
         secondTabBarItem.image = AssetsManager.getImage(Image.List)
         thirdTabBarItem.image = AssetsManager.getImage(Image.Staggerd)
-        self.view.addSubview(tabBarController.view)
-        self.addChildViewController(tabBarController)
-        tabBarController.didMoveToParentViewController(self)
-        let dataLoder = DataLoader()
-        dataLoder.loadImgurData(0)
-        dataLoder.dataDeligate = self
-        containerNavigationController = UINavigationController(rootViewController: tabBarController)
+        containerNavigationController = UINavigationController(rootViewController: appTabBarController)
         self.view.addSubview(containerNavigationController.view)
         self.addChildViewController(containerNavigationController)
         containerNavigationController.didMoveToParentViewController(self)
         containerNavigationController.hidesBarsOnSwipe = true
         self.addCustomNavigationBar((self.containerNavigationController?.navigationBar)!)
+
+        let dataLoder = DataLoader()
+        dataLoder.loadImgurData(0)
+        dataLoder.dataDeligate = self
     }
 
     func addCustomNavigationBar(navigationBar : UINavigationBar) {
@@ -63,8 +62,11 @@ class ContainerViewController: UIViewController, ImgurData {
         navigationBar.barTintColor = UIColor.lightGrayColor()
         navigationBar.translucent = false
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        let devInfoButton = UIBarButtonItem(image: AssetsManager.getImage(Image.Info), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showInformation))
+        let configButton = UIBarButtonItem(image: AssetsManager.getImage(Image.Config), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showConfig))
+        appTabBarController.navigationItem.rightBarButtonItems = [devInfoButton, configButton]
     }
-    
+
     func imgurDataGotLoaded() {
         if gridViewController.gridView != nil {
             gridViewController.gridView.reloadData()
@@ -78,7 +80,15 @@ class ContainerViewController: UIViewController, ImgurData {
             staggerdViewController.gridView.reloadData()
         }
     }
-    
+
+    func showInformation() {
+        
+    }
+
+    func showConfig() {
+        
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

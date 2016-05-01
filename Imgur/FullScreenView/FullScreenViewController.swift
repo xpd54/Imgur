@@ -119,8 +119,8 @@ class FullScreenViewController: UIViewController {
         self.view.addConstraints(vcScrollView)
         self.view.addConstraints(hcScrollView)
         // ScoreView Constraint
-        let hcStringScoreView = "H:|-0-[scoreView(imageView)]-0-|"
-        let vcStringScoreView = "V:|-0-[scoreView(\(heightOfScoreView))]-[imageView]"
+        let hcStringScoreView = "H:|-0-[scoreView]-0-|"
+        let vcStringScoreView = "V:|-0-[scoreView(\(heightOfScoreView))]-0-[imageView]-0-[descriptionView]-0-|"
         let hcScoreView = NSLayoutConstraint.constraintsWithVisualFormat(hcStringScoreView,
                                                                          options: NSLayoutFormatOptions.AlignAllTop,
                                                                          metrics: nil,
@@ -131,23 +131,28 @@ class FullScreenViewController: UIViewController {
                                                                          views: views)
         contentView.addConstraints(hcScoreView)
         contentView.addConstraints(vcScoreView)
+
         // Image View constraint
         let heightOfImageView = getHeightOfImageView()
         let vcStringImageView = "V:[imageView(\(heightOfImageView))]"
-        imageViewHC = NSLayoutConstraint.constraintsWithVisualFormat(vcStringImageView, options: NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
+        let hcStringImageView = "H:|-0-[imageView]-0-|"
+
+        let imageViewVC = NSLayoutConstraint.constraintsWithVisualFormat(hcStringImageView,
+                                                                         options: NSLayoutFormatOptions.AlignAllTop,
+                                                                         metrics: nil,
+                                                                         views: views)
+        imageViewHC = NSLayoutConstraint.constraintsWithVisualFormat(vcStringImageView,
+                                                                     options: NSLayoutFormatOptions.AlignAllLeft,
+                                                                     metrics: nil,
+                                                                     views: views)
         imageView.addConstraints(imageViewHC)
+        contentView.addConstraints(imageViewVC)
         // Description View constraint
         let hcStringDescription = "H:|-0-[descriptionView]-0-|"
-        let vcStringDescription = "V:[imageView]-0-[descriptionView]-0-|"
         let hcDescriptionView = NSLayoutConstraint.constraintsWithVisualFormat(hcStringDescription,
                                                                                options: NSLayoutFormatOptions.AlignAllBottom,
                                                                                metrics: nil,
                                                                                views: views)
-        let vcDescriptionView = NSLayoutConstraint.constraintsWithVisualFormat(vcStringDescription,
-                                                                               options: NSLayoutFormatOptions.AlignAllLeft,
-                                                                               metrics: nil,
-                                                                               views: views)
-        contentView.addConstraints(vcDescriptionView)
         contentView.addConstraints(hcDescriptionView)
         // Scroll view content View constraint
         let hcString = "H:|-0-[contentView(scrollView)]-0-|"
