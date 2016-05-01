@@ -113,19 +113,3 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
-
-extension ListViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        let traslation = scrollView.panGestureRecognizer.translationInView(scrollView.superview)
-        if traslation.y > 0{
-            print("done down \(traslation.y)")
-        } else {
-            print("done up\(traslation.y)")
-        }
-    }
-
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-
-    }
-}
-

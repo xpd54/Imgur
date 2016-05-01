@@ -82,7 +82,8 @@ class ContainerViewController: UIViewController, ImgurData {
     }
 
     func showInformation() {
-        
+        let appinfo = AppInfoViewController()
+        self.containerNavigationController?.pushViewController(appinfo, animated: true)
     }
 
     func showConfig() {
