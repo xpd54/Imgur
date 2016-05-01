@@ -54,6 +54,7 @@ class ContainerViewController: UIViewController, ImgurData {
         self.view.addSubview(containerNavigationController.view)
         self.addChildViewController(containerNavigationController)
         containerNavigationController.didMoveToParentViewController(self)
+        containerNavigationController.hidesBarsOnSwipe = true
         self.addCustomNavigationBar((self.containerNavigationController?.navigationBar)!)
     }
 
