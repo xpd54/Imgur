@@ -11,6 +11,7 @@ import SDWebImage
 
 class ListViewController: UIViewController {
     var tableView : UITableView!
+    private let navigationTitle = "List"
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +43,11 @@ class ListViewController: UIViewController {
         self.view.addConstraints(verticalConstraint)
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.topViewController?.title = navigationTitle
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -103,8 +109,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         let cellData = DataInMemoryCache.sharedInstance.imgurData.objectAtIndex(indexPath.row) as! NSDictionary
         let fullScreenViewController = FullScreenViewController()
         fullScreenViewController.imageInformation = cellData
-        let navController = UINavigationController(rootViewController: fullScreenViewController)
-        self.presentViewController(navController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(fullScreenViewController, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }

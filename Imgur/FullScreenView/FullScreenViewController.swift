@@ -17,10 +17,10 @@ class FullScreenViewController: UIViewController {
     private var contentViewHC : [NSLayoutConstraint]!
     private var descriptionView : UITextView!
     private var navController = UINavigationController()
+    private let navigationTitle = "Image"
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar((self.navigationController?.navigationBar)!)
-        // Do any additional setup after loading the view.
+        self.navigationItem.title = navigationTitle
     }
     
     override func loadView() {
@@ -213,20 +213,6 @@ class FullScreenViewController: UIViewController {
         return size.height
     }
 
-    private func setupNavigationBar(navigationBar: UINavigationBar) {
-        ViewEffect.addShadowEffect(navigationBar, opacity: 1.0)
-        navigationBar.translucent = false
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        let closeButtonTitle = "Close"
-        let closeButton = UIBarButtonItem(title: closeButtonTitle, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.closeView))
-        self.navigationItem.leftBarButtonItem = closeButton
-        self.navigationItem.title = "Image"
-    }
-    
-    func closeView() {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

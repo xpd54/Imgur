@@ -14,6 +14,15 @@ class GridViewController: UIViewController {
     var isGridView : Bool!
     private let cellWidth = 96
     private let reuseIdentifier = "ImgurCell"
+    private let gridNavigationTitle = "Grid"
+    private let staggerdNavigationTitle = "Staggerd"
+    private var navigationTitle : String {
+        if isGridView == true {
+            return "Grid"
+        } else {
+            return "Staggerd"
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,6 +52,11 @@ class GridViewController: UIViewController {
         self.view.addConstraints(verticalConstraints)
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.topViewController?.title = navigationTitle
+    }
+    
     private func getCellWidth() -> CGFloat {
         let widthOFScreen = UIScreen.mainScreen().bounds.width
         //UIEdgeinsets is 5 pix
@@ -131,8 +145,7 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
         let cellData = DataInMemoryCache.sharedInstance.imgurData.objectAtIndex(indexPath.row) as! NSDictionary
         let fullScreenViewController = FullScreenViewController()
         fullScreenViewController.imageInformation = cellData
-        let navController = UINavigationController(rootViewController: fullScreenViewController)
-        self.presentViewController(navController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(fullScreenViewController, animated: true)
     }
 }
 
