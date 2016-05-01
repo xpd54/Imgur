@@ -16,6 +16,7 @@
 		4A0111D61CCBF6620059428F /* DataInMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0111D51CCBF6620059428F /* DataInMemoryCache.swift */; };
 		4AB93AB71CCFAC9C00706D8A /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB93AB61CCFAC9B00706D8A /* FullScreenViewController.swift */; };
 		4ABC06661CD632C800FE1171 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC06651CD632C800FE1171 /* AppInfoViewController.swift */; };
+		4ABC06691CD6832E00FE1171 /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC06681CD6832E00FE1171 /* ConfigViewController.swift */; };
 		4AD6C3AB1CD26E770049E10E /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD6C3AA1CD26E770049E10E /* DataLoader.swift */; };
 		4AF0D58B1CD1FCD100B28260 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF0D58A1CD1FCD100B28260 /* ListViewController.swift */; };
 		4AF0D58D1CD1FD0500B28260 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF0D58C1CD1FD0500B28260 /* ListTableViewCell.swift */; };
@@ -51,6 +52,7 @@
 		4A0111D51CCBF6620059428F /* DataInMemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataInMemoryCache.swift; path = DataManager/DataInMemoryCache.swift; sourceTree = "<group>"; };
 		4AB93AB61CCFAC9B00706D8A /* FullScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		4ABC06651CD632C800FE1171 /* AppInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppInfoViewController.swift; path = AppInfoView/AppInfoViewController.swift; sourceTree = "<group>"; };
+		4ABC06681CD6832E00FE1171 /* ConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigViewController.swift; path = ConfigView/ConfigViewController.swift; sourceTree = "<group>"; };
 		4AD6C3AA1CD26E770049E10E /* DataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataLoader.swift; path = DataManager/DataLoader.swift; sourceTree = "<group>"; };
 		4AF0D58A1CD1FCD100B28260 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewController.swift; path = ListView/ListViewController.swift; sourceTree = "<group>"; };
 		4AF0D58C1CD1FD0500B28260 /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListTableViewCell.swift; path = ListView/ListTableViewCell.swift; sourceTree = "<group>"; };
@@ -141,6 +143,14 @@
 			name = AppInfoView;
 			sourceTree = "<group>";
 		};
+		4ABC06671CD6830400FE1171 /* ConfigView */ = {
+			isa = PBXGroup;
+			children = (
+				4ABC06681CD6832E00FE1171 /* ConfigViewController.swift */,
+			);
+			name = ConfigView;
+			sourceTree = "<group>";
+		};
 		4AF0D5891CD1FCA000B28260 /* ListView */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,7 +211,6 @@
 			children = (
 				A3FCD6421CC5F7CE00B8471C /* AppDelegate.swift */,
 				A3DF09D81CC74F9600FFB9CD /* ContainerViewController.swift */,
-				4ABC06621CD6323C00FE1171 /* AppInfoView */,
 				4A0111C11CCB52900059428F /* GridView */,
 				4AF0D5891CD1FCA000B28260 /* ListView */,
 				A3603F671CCDF55E000C58D0 /* FullScreenView */,
@@ -210,6 +219,8 @@
 				4A0111C81CCB7B780059428F /* NetworkModel */,
 				A3DF09DA1CC78D3200FFB9CD /* AssetsManager */,
 				4A0111D81CCD4C280059428F /* StoryBoards */,
+				4ABC06671CD6830400FE1171 /* ConfigView */,
+				4ABC06621CD6323C00FE1171 /* AppInfoView */,
 				A3FCD64C1CC5F7CE00B8471C /* Assets.xcassets */,
 				A3FCD6491CC5F7CE00B8471C /* Imgur.xcdatamodeld */,
 				A3FCD6511CC5F7CE00B8471C /* Info.plist */,
@@ -392,6 +403,7 @@
 				A3FCD64B1CC5F7CE00B8471C /* Imgur.xcdatamodeld in Sources */,
 				4A0111D61CCBF6620059428F /* DataInMemoryCache.swift in Sources */,
 				A3DF09DC1CC78D7800FFB9CD /* AssetsManager.swift in Sources */,
+				4ABC06691CD6832E00FE1171 /* ConfigViewController.swift in Sources */,
 				4A0111C31CCB52BD0059428F /* GridCollectionViewCell.swift in Sources */,
 				4A0111CA1CCB7B780059428F /* CoreApi.swift in Sources */,
 				4AF0D58B1CD1FCD100B28260 /* ListViewController.swift in Sources */,

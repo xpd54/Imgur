@@ -83,11 +83,12 @@ class ContainerViewController: UIViewController, ImgurData {
 
     func showInformation() {
         let appinfo = AppInfoViewController()
-        self.containerNavigationController?.pushViewController(appinfo, animated: true)
+        self.containerNavigationController.pushViewController(appinfo, animated: true)
     }
 
     func showConfig() {
-        
+        let config = ConfigViewController()
+        self.containerNavigationController.pushViewController(config, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
