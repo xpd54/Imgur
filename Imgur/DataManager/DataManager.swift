@@ -18,9 +18,9 @@ enum DataType : NSString {
     case ImageLink = "link"
     case Height  = "height"
     case Width = "width"
+    case Image = "Image"
 }
-private let writeQueue  = dispatch_queue_create("com.xpd54.imgur.write", nil)
-private let readQueue = dispatch_queue_create("com.xpdte.imgur.read", nil)
+
 private let imageCache = SDImageCache.sharedImageCache()
 class DataManager: NSObject {
     //Pass NSDictionary from CoreApi completion block

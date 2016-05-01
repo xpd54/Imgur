@@ -30,7 +30,6 @@ class GridCollectionViewCell: UICollectionViewCell {
         textLabel.backgroundColor = UIColor.clearColor()
         imageView.addSubview(textLabel)
         imageView.bringSubviewToFront(textLabel)
-        contentView.addSubview(progressView)
         contentView.addSubview(imageView)
         imageView.addSubview(progressView)
         contentView.backgroundColor = UIColor.blackColor()

@@ -8,26 +8,34 @@
 
 import UIKit
 
-class ContainerViewController: UIViewController {
+class ContainerViewController: UIViewController, ImgurData {
     let GRID = "Grid"
     let LIST = "List"
     let STAGGRED = "Staggerd"
+    var containerNavigationController: UINavigationController!
+    var gridViewController : GridViewController!
+    var listViewController : ListViewController!
+    var staggerdViewController : GridViewController!
+    var appTabBarController : UITabBarController!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.lightGrayColor()
         // Do any additional setup after loading the view.
     }
 
     override func loadView() {
         super.loadView()
-        let tabBarController = UITabBarController()
-        tabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
-        let gridViewController = GridViewController()
-        let listViewController = ListViewController()
-        let staggerdViewController = StaggerdViewController()
-        let controllers = [gridViewController, listViewController, staggerdViewController]
-        tabBarController.viewControllers = controllers
+        appTabBarController = UITabBarController()
+        appTabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
 
-        let tabBarItems = tabBarController.tabBar.items! as [UITabBarItem]
+        gridViewController = GridViewController()
+        gridViewController.isGridView = true
+        listViewController = ListViewController()
+        staggerdViewController = GridViewController()
+        staggerdViewController.isGridView = false
+        let controllers = [gridViewController, listViewController, staggerdViewController]
+        appTabBarController.viewControllers = controllers
+        let tabBarItems = appTabBarController.tabBar.items! as [UITabBarItem]
         let firstTabBarItem = tabBarItems[0] as UITabBarItem
         let secondTabBarItem = tabBarItems[1] as UITabBarItem
         let thirdTabBarItem = tabBarItems[2] as UITabBarItem
@@ -37,26 +45,49 @@ class ContainerViewController: UIViewController {
         firstTabBarItem.image = AssetsManager.getImage(Image.Grid)
         secondTabBarItem.image = AssetsManager.getImage(Image.List)
         thirdTabBarItem.image = AssetsManager.getImage(Image.Staggerd)
-        self.view.addSubview(tabBarController.view)
-        self.addChildViewController(tabBarController)
-        tabBarController.didMoveToParentViewController(self)
-        self.addCustomNavigationBar()
+        containerNavigationController = UINavigationController(rootViewController: appTabBarController)
+        self.view.addSubview(containerNavigationController.view)
+        self.addChildViewController(containerNavigationController)
+        containerNavigationController.didMoveToParentViewController(self)
+        containerNavigationController.hidesBarsOnSwipe = true
+        self.addCustomNavigationBar((self.containerNavigationController?.navigationBar)!)
+
+        let dataLoder = DataLoader()
+        dataLoder.loadImgurData(0)
+        dataLoder.dataDeligate = self
     }
 
-    func addCustomNavigationBar() -> UIView {
-        let navigationBar = UIView()
-        navigationBar.backgroundColor = UIColor.lightGrayColor()
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(navigationBar)
-        let views = ["navigationBar" : navigationBar]
-        let hcString = "H:|-0-[navigationBar]-0-|"
-        let vcString = "V:|-0-[navigationBar(64)]"
-        let horizontalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(hcString, options:NSLayoutFormatOptions.AlignAllLeft, metrics: nil, views: views)
-        let verticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(vcString, options: NSLayoutFormatOptions.AlignAllTop, metrics: nil, views: views)
-        self.view.addConstraints(horizontalConstraint)
-        self.view.addConstraints(verticalConstraint)
+    func addCustomNavigationBar(navigationBar : UINavigationBar) {
         ViewEffect.addShadowEffect(navigationBar, opacity: 1.0)
-        return navigationBar
+        navigationBar.barTintColor = UIColor.lightGrayColor()
+        navigationBar.translucent = false
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        let devInfoButton = UIBarButtonItem(image: AssetsManager.getImage(Image.Info), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showInformation))
+        let configButton = UIBarButtonItem(image: AssetsManager.getImage(Image.Config), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showConfig))
+        appTabBarController.navigationItem.rightBarButtonItems = [devInfoButton, configButton]
+    }
+
+    func imgurDataGotLoaded() {
+        if gridViewController.gridView != nil {
+            gridViewController.gridView.reloadData()
+        }
+
+        if listViewController.tableView != nil {
+            listViewController.tableView.reloadData()
+        }
+
+        if staggerdViewController.gridView != nil {
+            staggerdViewController.gridView.reloadData()
+        }
+    }
+
+    func showInformation() {
+        let appinfo = AppInfoViewController()
+        self.containerNavigationController?.pushViewController(appinfo, animated: true)
+    }
+
+    func showConfig() {
+        
     }
 
     override func didReceiveMemoryWarning() {
