@@ -12,7 +12,11 @@ let windowKey = "window"
 let showViral = "viral"
 let configDictKey = "configDict"
 let defaultValueDictKey = "defaultDict"
+protocol Configuration {
+    func configurationSaved()
+}
 class ConfigViewController: UIViewController {
+    var configDelegate : Configuration!
     var windowPicker : UIPickerView!
     var windowPickerArray : NSArray!
     var sectionPicker : UIPickerView!
@@ -153,6 +157,7 @@ class ConfigViewController: UIViewController {
         defaultValueDict.updateValue(viralSwitch.on, forKey: showViral)
         PersistentDataStore.setObject(configDict, key: configDictKey)
         PersistentDataStore.setObject(defaultValueDict, key: defaultValueDictKey)
+        configDelegate.configurationSaved()
         self.navigationController?.popViewControllerAnimated(true)
     }
 

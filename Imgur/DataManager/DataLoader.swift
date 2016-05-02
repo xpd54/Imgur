@@ -15,7 +15,7 @@ class DataLoader: NSObject {
     func loadImgurData(pageNo:Int) {
         let queue = dispatch_queue_create("com.xpd54.imgurLoadData", nil)
         dispatch_async(queue) {
-            let endPoint = "hot/viral/\(pageNo).json"
+            let endPoint = UrlGenerator.getUrlEndPoint(pageNo)
             CoreApi.makeApiCallForUrlEndPoint(endPoint, method: NetworkMethod.GET, apiData: nil) { (response) in
                 let imgurDataList = DataManager.getListOfData(response)
                 DataInMemoryCache.sharedInstance.imgurData.addObjectsFromArray(imgurDataList as [AnyObject])

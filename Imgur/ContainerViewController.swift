@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContainerViewController: UIViewController, ImgurData {
+class ContainerViewController: UIViewController, ImgurData, Configuration {
     let GRID = "Grid"
     let LIST = "List"
     let STAGGRED = "Staggerd"
@@ -51,10 +51,8 @@ class ContainerViewController: UIViewController, ImgurData {
         containerNavigationController.didMoveToParentViewController(self)
         containerNavigationController.hidesBarsOnSwipe = true
         self.addCustomNavigationBar((self.containerNavigationController?.navigationBar)!)
-
-        let dataLoder = DataLoader()
-        dataLoder.loadImgurData(0)
-        dataLoder.dataDeligate = self
+        
+        loadImgurData(0)
     }
 
     func addCustomNavigationBar(navigationBar : UINavigationBar) {
@@ -67,20 +65,6 @@ class ContainerViewController: UIViewController, ImgurData {
         appTabBarController.navigationItem.rightBarButtonItems = [devInfoButton, configButton]
     }
 
-    func imgurDataGotLoaded() {
-        if gridViewController.gridView != nil {
-            gridViewController.gridView.reloadData()
-        }
-
-        if listViewController.tableView != nil {
-            listViewController.tableView.reloadData()
-        }
-
-        if staggerdViewController.gridView != nil {
-            staggerdViewController.gridView.reloadData()
-        }
-    }
-
     func showInformation() {
         let appinfo = AppInfoViewController()
         self.containerNavigationController.pushViewController(appinfo, animated: true)
@@ -88,9 +72,37 @@ class ContainerViewController: UIViewController, ImgurData {
 
     func showConfig() {
         let config = ConfigViewController()
+        config.configDelegate = self
         self.containerNavigationController.pushViewController(config, animated: true)
     }
 
+    // MARK: Protocol Methods
+    func imgurDataGotLoaded() {
+        if gridViewController.gridView != nil {
+            gridViewController.gridView.reloadData()
+        }
+        
+        if listViewController.tableView != nil {
+            listViewController.tableView.reloadData()
+        }
+        
+        if staggerdViewController.gridView != nil {
+            staggerdViewController.gridView.reloadData()
+        }
+    }
+
+    func configurationSaved() {
+        // remove old data
+        DataInMemoryCache.sharedInstance.imgurData.removeAllObjects()
+        loadImgurData(0)
+    }
+    
+    func loadImgurData(page : Int) {
+        let dataLoder = DataLoader()
+        dataLoder.loadImgurData(0)
+        dataLoder.dataDeligate = self
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
