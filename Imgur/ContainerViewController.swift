@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MBProgressHUD
 class ContainerViewController: UIViewController, ImgurData, Configuration {
     let GRID = "Grid"
     let LIST = "List"
@@ -17,6 +17,7 @@ class ContainerViewController: UIViewController, ImgurData, Configuration {
     var listViewController : ListViewController!
     var staggerdViewController : GridViewController!
     var appTabBarController : UITabBarController!
+    var loadingProgress : MBProgressHUD!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightGrayColor()
@@ -89,6 +90,8 @@ class ContainerViewController: UIViewController, ImgurData, Configuration {
         if staggerdViewController.gridView != nil {
             staggerdViewController.gridView.reloadData()
         }
+
+        loadingProgress.hide(true)
     }
 
     func configurationSaved() {
@@ -98,6 +101,9 @@ class ContainerViewController: UIViewController, ImgurData, Configuration {
     }
     
     func loadImgurData(page : Int) {
+        loadingProgress = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        loadingProgress.mode = MBProgressHUDMode.Indeterminate
+        loadingProgress.labelText = "Loading..."
         let dataLoder = DataLoader()
         dataLoder.loadImgurData(0)
         dataLoder.dataDeligate = self

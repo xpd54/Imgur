@@ -54,6 +54,7 @@
 		4A0111D51CCBF6620059428F /* DataInMemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataInMemoryCache.swift; path = DataManager/DataInMemoryCache.swift; sourceTree = "<group>"; };
 		4A04C9C41CD769DF00C57270 /* PersistentDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistentDataStore.swift; path = PersistentDataStore/PersistentDataStore.swift; sourceTree = "<group>"; };
 		4A0D7C3D1CD7ABC10090518B /* UrlGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UrlGenerator.swift; path = ConfigView/UrlGenerator.swift; sourceTree = "<group>"; };
+		4A0D7C3F1CD7E4F30090518B /* Imgur-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Imgur-Bridging-Header.h"; sourceTree = "<group>"; };
 		4AB93AB61CCFAC9B00706D8A /* FullScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		4ABC06651CD632C800FE1171 /* AppInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppInfoViewController.swift; path = AppInfoView/AppInfoViewController.swift; sourceTree = "<group>"; };
 		4ABC06681CD6832E00FE1171 /* ConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigViewController.swift; path = ConfigView/ConfigViewController.swift; sourceTree = "<group>"; };
@@ -238,6 +239,7 @@
 				A3FCD64C1CC5F7CE00B8471C /* Assets.xcassets */,
 				A3FCD6491CC5F7CE00B8471C /* Imgur.xcdatamodeld */,
 				A3FCD6511CC5F7CE00B8471C /* Info.plist */,
+				4A0D7C3F1CD7E4F30090518B /* Imgur-Bridging-Header.h */,
 			);
 			path = Imgur;
 			sourceTree = "<group>";
@@ -564,6 +566,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpd54.Imgur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Imgur/Imgur-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -577,6 +580,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpd54.Imgur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Imgur/Imgur-Bridging-Header.h";
 			};
 			name = Release;
 		};
