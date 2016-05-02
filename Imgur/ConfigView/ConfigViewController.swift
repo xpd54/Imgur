@@ -13,15 +13,17 @@ class ConfigViewController: UIViewController {
     var windowPickerArray : NSArray!
     var sectionPicker : UIPickerView!
     var sectionPickerArray : NSArray!
+    var viralSwitch : UISwitch!
     private let barTitle = "Config"
     private let sectionPlaceHolder = "Choose Section"
     private let sTitleText = "Select Section"
     private let wTitleText = "Select Window"
+    private let switchTitle = "I Like It, Let's Go Viral 😜"
+    private let saveButtonTitle = "Save"
     private let titleTextSize : CGFloat = 18.0
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = barTitle
-        self.view.backgroundColor = UIColor.lightGrayColor()
         // Do any additional setup after loading the view.
     }
 
@@ -37,11 +39,19 @@ class ConfigViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
+        self.navigationItem.title = barTitle
+        self.view.backgroundColor = UIColor.lightGrayColor()
+        let saveButton = UIBarButtonItem(title: saveButtonTitle,
+                                         style: UIBarButtonItemStyle.Plain,
+                                         target: self,
+                                         action: #selector(seaveConfg))
+        self.navigationItem.rightBarButtonItem = saveButton
+
         let sectionTitle = UILabel()
         sectionTitle.translatesAutoresizingMaskIntoConstraints = false
         sectionTitle.font = UIFont.boldSystemFontOfSize(titleTextSize)
         sectionTitle.text = sTitleText
-        sectionTitle.textAlignment = .Center
+        sectionTitle.textAlignment = .Left
 
         sectionPicker = UIPickerView()
         sectionPicker.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +64,7 @@ class ConfigViewController: UIViewController {
         windowTitle.translatesAutoresizingMaskIntoConstraints = false
         windowTitle.font = UIFont.boldSystemFontOfSize(titleTextSize)
         windowTitle.text = wTitleText
-        windowTitle.textAlignment = .Center
+        windowTitle.textAlignment = .Left
 
         windowPicker = UIPickerView()
         windowPicker.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +72,21 @@ class ConfigViewController: UIViewController {
         windowPicker.delegate = self
         windowPicker.showsSelectionIndicator = true
         windowPicker.tag = 2
-        
+
+        let switchLable = UILabel()
+        switchLable.translatesAutoresizingMaskIntoConstraints = false
+        switchLable.font = UIFont.boldSystemFontOfSize(titleTextSize)
+        switchLable.text = switchTitle
+        switchLable.textAlignment = .Left
+
+        viralSwitch = UISwitch()
+        viralSwitch.translatesAutoresizingMaskIntoConstraints = false
+        viralSwitch.onTintColor = UIColor.greenColor()
+        viralSwitch.tintColor = UIColor.whiteColor()
+        viralSwitch.thumbTintColor = UIColor.whiteColor()
+
+        self.view.addSubview(switchLable)
+        self.view.addSubview(viralSwitch)
         self.view.addSubview(windowTitle)
         self.view.addSubview(sectionTitle)
         self.view.addSubview(sectionPicker)
@@ -70,11 +94,14 @@ class ConfigViewController: UIViewController {
         let views = ["window" : windowPicker,
                      "section" : sectionPicker,
                      "windowTitle" : windowTitle,
-                     "sectionTitle" : sectionTitle]
+                     "sectionTitle" : sectionTitle,
+                     "viral" : viralSwitch,
+                     "switchLable" : switchLable]
         let hcStringSection = "H:|-0-[section(sectionTitle)]-0-|"
         let hcStringWindow = "H:|-0-[window(windowTitle)]-0-|"
-        let vcStringSection = "V:|-0-[sectionTitle]-[section]-[windowTitle]-[window]-100-|"
-
+        let hcStringSwitch = "H:|-0-[switchLable]-0-[viral]-0-|"
+        let vcStringSection = "V:|-10-[switchLable(sectionTitle)]-20-[sectionTitle(windowTitle)]-0-[section(window)]-0-[windowTitle]-0-[window]-|"
+        
         let hcWindow = NSLayoutConstraint.constraintsWithVisualFormat(hcStringWindow,
                                                                       options: NSLayoutFormatOptions.AlignAllTop,
                                                                       metrics: nil,
@@ -83,13 +110,22 @@ class ConfigViewController: UIViewController {
                                                                        options: NSLayoutFormatOptions.AlignAllTop,
                                                                        metrics: nil,
                                                                        views: views)
+        let hcSwitch = NSLayoutConstraint.constraintsWithVisualFormat(hcStringSwitch,
+                                                                      options: NSLayoutFormatOptions.AlignAllTop,
+                                                                      metrics: nil,
+                                                                      views: views)
         let vcSection = NSLayoutConstraint.constraintsWithVisualFormat(vcStringSection,
                                                                        options: NSLayoutFormatOptions.AlignAllLeft,
                                                                        metrics: nil,
                                                                        views: views)
         self.view.addConstraints(hcWindow)
         self.view.addConstraints(hcSection)
+        self.view.addConstraints(hcSwitch)
         self.view.addConstraints(vcSection)
+    }
+
+    func seaveConfg() {
+        
     }
 
     override func didReceiveMemoryWarning() {
