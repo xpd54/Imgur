@@ -8,7 +8,11 @@
 
 import UIKit
 import SDWebImage
+protocol GridViewScroll {
+    func gridViewScrolledToEnd()
+}
 class GridViewController: UIViewController {
+    var gridViewDelegate : GridViewScroll!
     var heightOfTabBar = CGFloat()
     var gridView : UICollectionView!
     var isGridView : Bool!
@@ -146,12 +150,13 @@ extension GridViewController: UICollectionViewDataSource, UICollectionViewDelega
         self.navigationController?.pushViewController(fullScreenViewController, animated: true)
     }
     
-    func showInformation() {
-        
-    }
-    
-    func showConfig() {
-        
+}
+
+extension GridViewController : UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if self.gridView.contentOffset.y >= (self.gridView.contentSize.height - self.gridView.bounds.size.height){
+            gridViewDelegate.gridViewScrolledToEnd()
+        }
     }
 }
 

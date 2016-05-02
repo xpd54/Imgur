@@ -7,6 +7,7 @@ target 'Imgur' do
 use_frameworks!
 pod 'Alamofire', '~> 3.0'
 pod 'SDWebImage', '~>3.7'
+pod 'MBProgressHUD', '~> 0.9.2'
 end
 
 target 'ImgurTests' do
