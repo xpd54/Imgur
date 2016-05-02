@@ -16,7 +16,17 @@ class AppInfoViewController: UIViewController {
         self.navigationItem.title = "App Info"
         // Do any additional setup after loading the view.
     }
-    
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.hidesBarsOnSwipe = false
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.hidesBarsOnSwipe = true
+    }
+
     override func loadView() {
         super.loadView()
         let version = UILabel()
