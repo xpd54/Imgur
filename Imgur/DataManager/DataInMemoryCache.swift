@@ -11,4 +11,5 @@ import UIKit
 class DataInMemoryCache: NSObject {
     static let sharedInstance = DataInMemoryCache()
     let imgurData = NSMutableArray()
+    var lock  = false
 }

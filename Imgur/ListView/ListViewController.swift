@@ -8,9 +8,12 @@
 
 import UIKit
 import SDWebImage
-
+protocol ListViewScroll {
+    func listViewScrolledToEnd()
+}
 class ListViewController: UIViewController {
     var tableView : UITableView!
+    var listViewDelegate : ListViewScroll!
     private let navigationTitle = "List"
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,5 +114,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         fullScreenViewController.imageInformation = cellData
         self.navigationController?.pushViewController(fullScreenViewController, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+}
+
+extension ListViewController : UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height){
+            listViewDelegate.listViewScrolledToEnd()
+        }
     }
 }

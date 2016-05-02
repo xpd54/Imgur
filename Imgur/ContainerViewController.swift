@@ -18,6 +18,7 @@ class ContainerViewController: UIViewController, ImgurData, Configuration {
     var staggerdViewController : GridViewController!
     var appTabBarController : UITabBarController!
     var loadingProgress : MBProgressHUD!
+    var pageNumber = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightGrayColor()
@@ -30,9 +31,12 @@ class ContainerViewController: UIViewController, ImgurData, Configuration {
         appTabBarController.tabBar.barTintColor = UIColor.darkGrayColor()
 
         gridViewController = GridViewController()
+        gridViewController.gridViewDelegate = self
         gridViewController.isGridView = true
         listViewController = ListViewController()
+        listViewController.listViewDelegate = self
         staggerdViewController = GridViewController()
+        staggerdViewController.gridViewDelegate = self
         staggerdViewController.isGridView = false
         let controllers = [gridViewController, listViewController, staggerdViewController]
         appTabBarController.viewControllers = controllers
@@ -53,7 +57,7 @@ class ContainerViewController: UIViewController, ImgurData, Configuration {
         containerNavigationController.hidesBarsOnSwipe = true
         self.addCustomNavigationBar((self.containerNavigationController?.navigationBar)!)
         
-        loadImgurData(0)
+        loadImgurData(pageNumber)
     }
 
     func addCustomNavigationBar(navigationBar : UINavigationBar) {
@@ -92,12 +96,14 @@ class ContainerViewController: UIViewController, ImgurData, Configuration {
         }
 
         loadingProgress.hide(true)
+        // release lock for next page
+        DataInMemoryCache.sharedInstance.lock = false
     }
 
     func configurationSaved() {
         // remove old data
         DataInMemoryCache.sharedInstance.imgurData.removeAllObjects()
-        loadImgurData(0)
+        loadImgurData(pageNumber)
     }
     
     func loadImgurData(page : Int) {
@@ -105,12 +111,31 @@ class ContainerViewController: UIViewController, ImgurData, Configuration {
         loadingProgress.mode = MBProgressHUDMode.Indeterminate
         loadingProgress.labelText = "Loading..."
         let dataLoder = DataLoader()
-        dataLoder.loadImgurData(0)
+        dataLoder.loadImgurData(page)
         dataLoder.dataDeligate = self
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+// MARK: gridView and Listview scroll protocol
+extension ContainerViewController : GridViewScroll, ListViewScroll {
+    func gridViewScrolledToEnd() {
+        nextPageData()
+    }
+
+    func listViewScrolledToEnd() {
+        nextPageData()
+    }
+    
+    func nextPageData() {
+        // avoid calling multiple time release lock after getting reloaded
+        if !DataInMemoryCache.sharedInstance.lock {
+            DataInMemoryCache.sharedInstance.lock = true
+            pageNumber = pageNumber + 1
+            loadImgurData(pageNumber)
+        }
     }
 }
