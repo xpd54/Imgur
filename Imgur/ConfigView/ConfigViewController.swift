@@ -153,6 +153,7 @@ class ConfigViewController: UIViewController {
         defaultValueDict.updateValue(viralSwitch.on, forKey: showViral)
         PersistentDataStore.setObject(configDict, key: configDictKey)
         PersistentDataStore.setObject(defaultValueDict, key: defaultValueDictKey)
+        self.navigationController?.popViewControllerAnimated(true)
     }
 
     func getDefaultValue() -> [String : AnyObject] {
