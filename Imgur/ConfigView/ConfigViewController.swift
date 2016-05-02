@@ -7,7 +7,11 @@
 //
 
 import UIKit
-
+let sectionKey = "section"
+let windowKey = "window"
+let showViral = "viral"
+let configDictKey = "configDict"
+let defaultValueDictKey = "defaultDict"
 class ConfigViewController: UIViewController {
     var windowPicker : UIPickerView!
     var windowPickerArray : NSArray!
@@ -21,7 +25,8 @@ class ConfigViewController: UIViewController {
     private let switchTitle = "I Like It, Let's Go Viral 😜"
     private let saveButtonTitle = "Save"
     private let titleTextSize : CGFloat = 18.0
-
+    private var configDict : [String : AnyObject]!
+    private var defaultValueDict : [String : AnyObject]!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -30,6 +35,10 @@ class ConfigViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.hidesBarsOnSwipe = false
+
+        sectionPicker.selectRow(defaultValueDict[sectionKey] as! Int, inComponent: 0, animated: true)
+        windowPicker.selectRow(defaultValueDict[windowKey] as! Int, inComponent: 0, animated: true)
+        viralSwitch.setOn(defaultValueDict[showViral] as! Bool, animated: true)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -39,12 +48,20 @@ class ConfigViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
+        configDict = [String : AnyObject]()
+        if let dict = PersistentDataStore.objectForKey(defaultValueDictKey) {
+            defaultValueDict = dict as! [String : AnyObject]
+        } else {
+            defaultValueDict = getDefaultValue()
+        }
+        sectionPickerArray = ["Hot", "Top", "User"]
+        windowPickerArray  = ["Day", "Week", "Month", "Year", "All"]
         self.navigationItem.title = barTitle
         self.view.backgroundColor = UIColor.lightGrayColor()
         let saveButton = UIBarButtonItem(title: saveButtonTitle,
                                          style: UIBarButtonItemStyle.Plain,
                                          target: self,
-                                         action: #selector(seaveConfg))
+                                         action: #selector(saveConfg))
         self.navigationItem.rightBarButtonItem = saveButton
 
         let sectionTitle = UILabel()
@@ -124,8 +141,22 @@ class ConfigViewController: UIViewController {
         self.view.addConstraints(vcSection)
     }
 
-    func seaveConfg() {
-        
+    func saveConfg() {
+        let sectionRow = sectionPicker.selectedRowInComponent(0)
+        configDict.updateValue((sectionPickerArray.objectAtIndex(sectionRow).lowercaseString), forKey: sectionKey)
+        let windowRow = windowPicker.selectedRowInComponent(0)
+        configDict.updateValue((windowPickerArray.objectAtIndex(windowRow)).lowercaseString, forKey: windowKey)
+        configDict.updateValue(viralSwitch.on, forKey: showViral)
+
+        defaultValueDict.updateValue(sectionRow, forKey: sectionKey)
+        defaultValueDict.updateValue(windowRow, forKey: windowKey)
+        defaultValueDict.updateValue(viralSwitch.on, forKey: showViral)
+        PersistentDataStore.setObject(configDict, key: configDictKey)
+        PersistentDataStore.setObject(defaultValueDict, key: defaultValueDictKey)
+    }
+
+    func getDefaultValue() -> [String : AnyObject] {
+        return [sectionKey : 0, windowKey : 0, showViral : false]
     }
 
     override func didReceiveMemoryWarning() {
@@ -140,15 +171,30 @@ extension ConfigViewController: UITextFieldDelegate, UIPickerViewDelegate, UIPic
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 3
+        if pickerView.tag == 1 {
+            return sectionPickerArray.count
+        } else if pickerView.tag == 2 {
+            return windowPickerArray.count
+        } else {
+            return 0
+        }
     }
-    
+
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("Yes")
-        print("\(pickerView.tag)")
+        if pickerView.tag == 1 {
+            defaultValueDict.updateValue(row, forKey: sectionKey)
+        } else if pickerView.tag == 2 {
+            defaultValueDict.updateValue(row, forKey: windowKey)
+        }
     }
-    
+
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "got you"
+        if pickerView.tag == 1 {
+            return sectionPickerArray.objectAtIndex(row) as? String
+        } else if pickerView.tag == 2 {
+            return windowPickerArray.objectAtIndex(row) as? String
+        } else {
+            return "Nope"
+        }
     }
 }

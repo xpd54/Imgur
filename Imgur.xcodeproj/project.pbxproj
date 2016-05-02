@@ -15,6 +15,7 @@
 		4A0111D01CCBE4820059428F /* ViewEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0111CF1CCBE4820059428F /* ViewEffect.swift */; };
 		4A0111D61CCBF6620059428F /* DataInMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0111D51CCBF6620059428F /* DataInMemoryCache.swift */; };
 		4A04C9C51CD769DF00C57270 /* PersistentDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A04C9C41CD769DF00C57270 /* PersistentDataStore.swift */; };
+		4A0D7C3E1CD7ABC10090518B /* UrlGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0D7C3D1CD7ABC10090518B /* UrlGenerator.swift */; };
 		4AB93AB71CCFAC9C00706D8A /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB93AB61CCFAC9B00706D8A /* FullScreenViewController.swift */; };
 		4ABC06661CD632C800FE1171 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC06651CD632C800FE1171 /* AppInfoViewController.swift */; };
 		4ABC06691CD6832E00FE1171 /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC06681CD6832E00FE1171 /* ConfigViewController.swift */; };
@@ -52,6 +53,7 @@
 		4A0111CF1CCBE4820059428F /* ViewEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewEffect.swift; sourceTree = "<group>"; };
 		4A0111D51CCBF6620059428F /* DataInMemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataInMemoryCache.swift; path = DataManager/DataInMemoryCache.swift; sourceTree = "<group>"; };
 		4A04C9C41CD769DF00C57270 /* PersistentDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistentDataStore.swift; path = PersistentDataStore/PersistentDataStore.swift; sourceTree = "<group>"; };
+		4A0D7C3D1CD7ABC10090518B /* UrlGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UrlGenerator.swift; path = ConfigView/UrlGenerator.swift; sourceTree = "<group>"; };
 		4AB93AB61CCFAC9B00706D8A /* FullScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		4ABC06651CD632C800FE1171 /* AppInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppInfoViewController.swift; path = AppInfoView/AppInfoViewController.swift; sourceTree = "<group>"; };
 		4ABC06681CD6832E00FE1171 /* ConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigViewController.swift; path = ConfigView/ConfigViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				4ABC06681CD6832E00FE1171 /* ConfigViewController.swift */,
+				4A0D7C3D1CD7ABC10090518B /* UrlGenerator.swift */,
 			);
 			name = ConfigView;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				4AF0D58B1CD1FCD100B28260 /* ListViewController.swift in Sources */,
 				A3DF09D91CC74F9600FFB9CD /* ContainerViewController.swift in Sources */,
 				A30B17AE1CCF2A4800AE74D8 /* ScoreView.swift in Sources */,
+				4A0D7C3E1CD7ABC10090518B /* UrlGenerator.swift in Sources */,
 				4AB93AB71CCFAC9C00706D8A /* FullScreenViewController.swift in Sources */,
 				4AD6C3AB1CD26E770049E10E /* DataLoader.swift in Sources */,
 				4A04C9C51CD769DF00C57270 /* PersistentDataStore.swift in Sources */,
