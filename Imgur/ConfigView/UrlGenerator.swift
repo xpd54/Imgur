@@ -7,23 +7,31 @@
 //
 
 import UIKit
-
+private let DEFAULTS_SECTION = "hot"
+private let DEFAULTS_WINDOW = "day"
+private let DEFAULTS_VIRAL = false
 class UrlGenerator: NSObject {
     class func getUrlEndPoint(pageNumber : Int) -> String {
+        var endPointString = String()
+        var sectionValue = String()
+        var windowValue = String()
+        var viral = Bool()
         if let configDict = PersistentDataStore.objectForKey(configDictKey) {
-            var endPointString = String()
-            let sectionValue = configDict[sectionKey] as! NSString
-            let windowValue = configDict[windowKey] as! NSString
-            let viral = configDict[showViral] as! Bool
-            if sectionValue.isEqualToString("top") {
-                endPointString.appendContentsOf("top/\(windowValue)/\(pageNumber)")
-            } else if sectionValue.isEqualToString("user") {
-                endPointString.appendContentsOf("\(sectionValue)/\(pageNumber)?showViral=\(viral)")
-            } else {
-                endPointString.appendContentsOf("\(sectionValue)/\(pageNumber)")
-            }
-            return endPointString
+            sectionValue = configDict[sectionKey] as! String
+            windowValue = configDict[windowKey] as! String
+            viral = configDict[showViral] as! Bool
+        } else {
+            sectionValue = DEFAULTS_SECTION
+            windowValue = DEFAULTS_WINDOW
+            viral = DEFAULTS_VIRAL
         }
-        return ""
+        if sectionValue == "top" {
+            endPointString.appendContentsOf("top/\(windowValue)/\(pageNumber)")
+        } else if sectionValue == "user" {
+            endPointString.appendContentsOf("\(sectionValue)/\(pageNumber)?showViral=\(viral)")
+        } else {
+            endPointString.appendContentsOf("\(sectionValue)/\(pageNumber)")
+        }
+        return endPointString
     }
 }
